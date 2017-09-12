@@ -38,6 +38,11 @@ switch ($type) {
 		$Message = list_userInfo();
 		echo json_encode($Message);
 		break;
+
+	case "log_out":
+		$Message = log_out();
+		echo json_encode($Message);
+		break;
 	
 	default:
 		$Message = "Unknown operations!";
@@ -45,6 +50,12 @@ switch ($type) {
 }
 
 
+function log_out()
+{	
+	session_start();
+	session_destroy();
+	return "Log out Successfully!";
+}
 
 function user_Register()
 {

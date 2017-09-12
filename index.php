@@ -44,7 +44,7 @@
 						</li>
 							
 						
-						<li><a href="login.html"><i class="lnr lnr-exit"></i><span onclick= "log_out()">Logout</span></a></li>
+						<li><a href="#"><i class="lnr lnr-exit"></i><button onclick= "log_out()">Logout</button></li>
 					</ul>
 				</div>
 			</div>
@@ -55,7 +55,7 @@
 			<div class="sidebar-scroll">
 				<nav>
 					<ul class="nav">
-						<li><a href="index.html" class="active"><i class="lnr lnr-home"></i> <span>Overview</span></a></li>
+						<li><a href="index.php" class="active"><i class="lnr lnr-home"></i> <span>Overview</span></a></li>
 						<li>
 							<a href="#subPages1" data-toggle="collapse" class="collapsed"><i class="lnr lnr-dice"></i><span>Supplier Data Mgmt</span> <i class="icon-submenu lnr lnr-chevron-left"></i></a>
 							<div id="subPages1" class="collapse ">
@@ -71,7 +71,8 @@
 							<div id="subPages2" class="collapse ">
 								<ul class="nav">
 									<li><a href="addResearchData.php" class="">Add Research Data</a></li>
-									<li><a href="researchDataInfo.php" class="">Research Data List</a></li>
+									<li><a href="researchDataInfo.php" class="">Data List/Searching</a></li>
+									
 								</ul>
 							</div>
 						</li>
@@ -79,8 +80,9 @@
 							<a href="#subPages3" data-toggle="collapse" class="collapsed"><i class="lnr lnr-user"></i><span>User Management</span> <i class="icon-submenu lnr lnr-chevron-left"></i></a>
 							<div id="subPages3" class="collapse ">
 								<ul class="nav">
-				 					<li><a href="register.php" class="">Register new account</a></li>
-									<li><a href="userInfo.php" class="">User List</a></li>									
+									<li><a href="register.php" class="">Register new account</a></li>
+									<li><a href="userInfo.php" class="">User List</a></li>
+									
 								</ul>
 							</div>
 						</li>
@@ -158,8 +160,20 @@
 	<script src="assets/vendor/jquery.easy-pie-chart/jquery.easypiechart.min.js"></script>
 	<script src="assets/vendor/chartist/js/chartist.min.js"></script>
 	<script src="assets/scripts/klorofil-common.js"></script>
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
 	<script>
-
+function log_out()
+{
+	$.ajax({
+		type: "POST",
+        url: "php/userOperations.php",
+        data: {type:"log_out"},
+        dataType: "json",
+        success:function(data){
+        	window.location.href = "login.html";
+        }
+	});
+}
 
 	$(function() {
 		var data, options;

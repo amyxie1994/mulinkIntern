@@ -33,6 +33,8 @@ switch ($type) {
 	case "updateSupplier":
 		updateSupplier();
 		break;
+
+	
 	
 	default:
 		$Message = "Unknown operations!";

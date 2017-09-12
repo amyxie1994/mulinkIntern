@@ -28,8 +28,9 @@ class userManager
 /**********Register*******************************************/
 
 	public function add_user($username,$password,$add_supOrPro,$add_ReData,$vOrS_a_sudata,$vOrS_o_sudata,$vOrS_a_redata,$vOrS_o_redata)
-	{
-		$sql = "INSERT INTO user(Username,Password,add_Supplier,add_ReData,vOrS_a_sudata,vOrS_o_sudata,vOrS_a_redata,vOrS_o_redata) VALUES('$username','$password','$add_supOrPro','$add_ReData','$vOrS_a_sudata','$vOrS_o_sudata','$vOrS_a_redata','$vOrS_o_redata');";
+	{	date_default_timezone_set("UTC");
+		$create_time = time();
+		$sql = "INSERT INTO user(Username,Password,add_Supplier,add_ReData,vOrS_a_sudata,vOrS_o_sudata,vOrS_a_redata,vOrS_o_redata,Createtime) VALUES('$username','$password','$add_supOrPro','$add_ReData','$vOrS_a_sudata','$vOrS_o_sudata','$vOrS_a_redata','$vOrS_o_redata','$create_time');";
 
 		$result = $this->execute($sql);
 		//echo $result;
