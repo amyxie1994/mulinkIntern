@@ -3,16 +3,135 @@
 class researchDataManager
 {
 	
-	public function addResearchData($productId,$name,$indcost,$QTY,$sampleCost,$addUnitPrice,$fba,$totalCost,$estProfit,$Life_cycle,$otherInfo)
+	public function addResearchData($productId,$name,$AliBusinessCard,$Seller,$sellerPrice,$AliPrice,$fba,$estProfit,$Life_cycle,$otherInfo,$Creator,$BSR)
 	{
-		$sql = "INSERT INTO research_result(ResultId,productName,indcost,QTY,sampleCost,addUnitPrice,FBA_fees,totalCost,estProfit,life_cycle,OtherInfo) VALUES('$productId','$name','$indcost','$QTY','$sampleCost','$addUnitPrice','$fba','$totalCost','$estProfit','$Life_cycle','$otherInfo');";
-		echo $sql;
+		$Create_time=date("y:m:d:h:m:sa");
+		$sql = "INSERT INTO research_result(ResultId,productName,AliBusinessCard,Seller,sellerPrice,AliPrice,FBA_fees,estProfit,life_cycle,OtherInfo,Creator,BSR,Create_time) VALUES('$productId','$name','$AliBusinessCard','$Seller','$sellerPrice','$AliPrice','$fba','$estProfit','$Life_cycle','$otherInfo','$Creator','$BSR','$Create_time');";
+		
 		return $this->execute($sql);
 	}
 
-	public function listData()
+
+
+	public function filterSearch($name,$kw ,$LBSR ,$HBSR ,$LSales ,$HSales ,$LAPrice ,$HAPrice ,$LFBA ,$HFBA ,$LEST ,$HEST ,$LLC ,$HLC)
 	{
-		$sql = "SELECT * FROM research_result;";
+		
+		$maxBSR = $this->getMax("BSR");
+		$maxSales = $this->getMax("sellerPrice");
+		$maxAprice = $this->getMax("AliPrice");
+		$maxFBA = $this->getMax("FBA_fees");
+		$maxEProfit = $this->getMax("estProfit");
+		$maxLC = $this->getMax("Life_cycle");
+		$searchName = "%%";
+		$keyword = "%%";
+		$minBSR = 0;
+		$minSales = 0;
+		$minAprice = 0;
+		$minFBA = 0;
+		$minEProfit = 0;
+		$minLC = 0;
+
+		if($searchName != "")
+			$searchName = "%".$name."%";
+
+		if($LBSR !="")
+			$minBSR = (int)$LBSR;
+		if($HBSR !="")
+			$maxBSR =(int) $HBSR;
+
+		if($LSales !="")
+			$minSales =floatval($LSales);
+		if($HSales !="")
+			$maxSales =floatval($HSales);
+
+
+		if($LAPrice !="")
+			$minAprice =floatval($LAPrice);
+		if($HSales !="")
+			$maxAprice =floatval($HAPrice);
+
+		if($LFBA !="")
+			$minFBA =floatval($LFBA);
+		if($HFBA !="")
+			$maxFBA =floatval($HFBA);
+
+		if($LEST !="")
+			$minEProfit =floatval($LEST);
+		if($HFBA !="")
+			$maxEProfit =floatval($HEST);
+
+		if($LLC !="")
+			$minLC =(int)$LLC;
+		if($HLC!="")
+			$maxLC =(int)$HLC;
+
+		//return $minSales;
+
+		$sql = "SELECT * FROM research_result WHERE productName like '$searchName' AND BSR BETWEEN '$minBSR' AND '$maxBSR' AND sellerPrice BETWEEN '$minSales' AND '$maxSales' AND AliPrice BETWEEN '$minAprice' AND '$maxAprice' AND FBA_fees BETWEEN '$minFBA' AND '$maxFBA' AND estProfit BETWEEN '$minEProfit' AND '$maxEProfit' AND Life_cycle BETWEEN '$minLC' AND '$maxLC' ;";
+		
+		//return $sql;
+		$result = $this->execute($sql);
+		$data = $this->get_data($result);
+
+		if($kw == "")
+			return $data;
+		else
+		{
+			$finalRe = [];
+			for($i=0,$j =0;$i<count($data);$i++)
+				if($this->checkKW($data[$i]["ResultId"],$kw))
+				{
+					$finalRe[$j] =$data[$i];
+					$j++;
+				}
+			return $finalRe;
+					
+		}
+	}
+
+
+	private function checkKW($id,$kw)
+	{	
+	
+		$check = 0;
+		$sql = "SELECT * FROM keyword INNER JOIN main_kw ON keyword.kwId = main_kw.Kw_id WHERE Product_id = '$id' AND keyword = '$kw'; ";
+		$result = $this->execute($sql);
+		if(count($this->get_data($result)))
+			return 1;
+		else
+		{
+			$sql = "SELECT * FROM keyword INNER JOIN other_kw ON keyword.kwId = other_kw.Kw_id WHERE Product_id = '$id' AND keyword = '$kw'; ";
+			$result = $this->execute($sql);
+			if(count($this->get_data($result)))
+				return 1;
+			else
+				return 0;
+		}
+	}
+
+	private function getMax($variable)
+	{
+		$sql = "SELECT MAX($variable) AS MAX_VALUE FROM research_result;";
+
+		$result = $this->execute($sql);
+		$data = $this->get_data($result);
+		return $data[0]["MAX_VALUE"];
+	}
+
+
+	public function updateResearchData($id,$name,$AliBusinessCard,$Seller,$sellerPrice,$AliPrice,$fba,$estProfit,$Life_cycle,$otherInfo,$BSR)
+	{
+		$sql = "UPDATE research_result SET productName ='$name' ,AliBusinessCard = '$AliBusinessCard',Seller = '$Seller',sellerPrice = '$sellerPrice',AliPrice = '$AliPrice' ,FBA_fees = '$fba',estProfit = '$estProfit',life_cycle = '$Life_cycle',OtherInfo = '$otherInfo',BSR = '$BSR' WHERE ResultId = '$id';";
+		
+		return $this->execute($sql);
+	}
+
+	public function listData($username,$permission)
+	{	
+		if($permission)
+			$sql = "SELECT * FROM research_result;";
+		else
+			$sql = "SELECT * FROM research_result WHERE Creator = '$username';";
 		$result = $this->execute($sql);
 		return $this->get_data($result);
 	}

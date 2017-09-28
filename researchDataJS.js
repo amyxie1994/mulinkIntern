@@ -21,7 +21,7 @@ function load_data(){
         data: {type:"QsearchData",query:query},
         dataType: "json",
         success:function(data){
-            alert(data);
+          
             update(data);        
         }
     });
@@ -43,19 +43,18 @@ function update(data)
         mainkw = getMainKW(id);
         otherkw = getOtherKW(id);
         name = row.productName;
-        QTY = row.QTY;
-        sampleCost = row.sampleCost;
-        totalCost = row.totalCost;
+        BSR = row.BSR;
+        sellerPrice = row.sellerPrice;
+        AliPrice = row.AliPrice;
         estProfit = row.estProfit;
         FBA = row.FBA_fees;
-        MOQ = row.MOQ;
         life_cycle = row.life_cycle;
         
-        append_table(tbody,id,mainkw,otherkw,name,QTY,sampleCost,totalCost,estProfit,FBA,MOQ,life_cycle);
+        append_table(tbody,id,mainkw,otherkw,name,BSR,sellerPrice,AliPrice,estProfit,FBA,life_cycle,row.Create_time);
     }
     table.replaceChild(tbody,old_tbody);
 }
- function append_table(tbody,id,mainkw,otherkw,name,QTY,sampleCost,totalCost,estProfit,FBA,MOQ,life_cycle)
+ function append_table(tbody,id,mainkw,otherkw,name,BSR,sellerPrice,AliPrice,estProfit,FBA,life_cycle,Create_time)
  {
 
  	var row = tbody.insertRow(0);
@@ -66,7 +65,7 @@ function update(data)
 
  	var cell1 = row.insertCell(1);
     var link = document.createElement("a");
-   link.setAttribute("href", "showResearchData.php?reseach_id="+id );
+   link.setAttribute("href", "addCompetitorAnalysis.php?reseach_id="+id );
    var linkText = document.createTextNode(name);
     link.appendChild(linkText);
     cell1.appendChild(link);
@@ -79,32 +78,29 @@ function update(data)
  	cell3.innerHTML = otherkw;
 
  	var cell4 = row.insertCell(4);
- 	cell4.innerHTML = QTY;
+ 	cell4.innerHTML = BSR;
 
  	var cell5 = row.insertCell(5);
- 	cell5.innerHTML = sampleCost;
+ 	cell5.innerHTML = sellerPrice;
 
  	var cell6 = row.insertCell(6);
- 	cell6.innerHTML =totalCost;
+ 	cell6.innerHTML =AliPrice;
 
  	var cell7 = row.insertCell(7);
- 	cell7.innerHTML =estProfit;
+ 	cell7.innerHTML =FBA;
 
  	var cell8 = row.insertCell(8);
- 	cell8.innerHTML =FBA;
+ 	cell8.innerHTML =estProfit;
 
  	var cell9 = row.insertCell(9);
- 	cell9.innerHTML =MOQ;
+ 	cell9.innerHTML =life_cycle;
+
+    var cell10 = row.insertCell(10);
+    cell10.innerHTML =Create_time;
+ 
 
 
- 	var cell10 = row.insertCell(10);
- 	cell10.innerHTML = estProfit;
-
-    var cell11 = row.insertCell(11);
-    cell11.innerHTML = life_cycle;
-
-
- 	var cell12 = row.insertCell(12);
+ 	var cell12 = row.insertCell(11);
  	var btn1 = document.createElement('button');
  	btn1.className = "btn btn-info btn-xs";
  	btn1.onclick = function(){	
@@ -117,7 +113,7 @@ function update(data)
     btn1.appendChild(temp1);
     cell12.appendChild(btn1);
 
-    cell12 = row.insertCell(13);
+    cell12 = row.insertCell(12);
     btn1 = document.createElement('button');
     btn1.className = "btn btn-info btn-xs";
     btn1.onclick = function(){
@@ -131,7 +127,7 @@ function update(data)
     cell12.appendChild(btn1);
  	
 
- 	var cell13 = row.insertCell(14);
+ 	var cell13 = row.insertCell(13);
  	var btn2 = document.createElement('button');
  	btn2.className = "btn btn-danger btn-xs";
  	btn2.onclick = function(){
@@ -153,7 +149,8 @@ function viewProduct(id)
 }
 function editData(id)
 {
-    
+   
+    window.location.href = "editResearchData.php?re_id="+id;
 }
 
 function deleteData(id)
@@ -164,8 +161,8 @@ function deleteData(id)
         dataType: "json",
         data:{type:"deleteResearchData",query:id},
         success: function(data){    
-            //window.reload();
-            alert(data);
+             alert(data);
+             location.reload();
         }
 
     });
@@ -228,4 +225,11 @@ function concatOtherKeyword(data)
     return result;
 }
 
-
+function clickFunction() {
+  var modal = document.getElementById('myModal');
+    modal.style.display = "block";
+}
+function closeModal() {
+  var modal = document.getElementById('myModal');
+    modal.style.display = "none";
+}

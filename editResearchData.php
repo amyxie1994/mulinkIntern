@@ -106,25 +106,19 @@
 				
 						<div class="panel" width="20px";>
 								<div class="panel-heading">
-									<h3 class="panel-title" width= >Add Research Data Information</h3>
+									<h3 class="panel-title" width= >Update Research Data Information</h3>
 							<p class="panel-subtitle">Input information</p>
 							
 								</div>
 								<div class="panel-body">
 								<form class="form-horizontal" action="php/researchDataOperations.php" method="post">
-								<input type="hidden" class="form-control" placeholder="text field" id = "type" name ="type" value = "addResearchData">
+								<input type="hidden" class="form-control" placeholder="text field" id = "type" name ="type" value = "updateResearchData">
+								<input type="hidden" class="form-control" placeholder="text field" id = "reId" name ="reId" >
 								Name:
 								<br>
 									<input type="text" class="form-control" id = "proName" name ="proName">
 								<br>
-								Main Keyword:
-								<br>
-									<input type="text" class="form-control" id = "mainKW" name ="mainKW">
-								<br>
-								Other Keyword:
-								<br>
-									<input type="text" class="form-control" id = "otherKW" name ="otherKW">
-								<br>
+								
 								BSR:
 								<br>
 									<input type="text" class="form-control" id = "BSR" name ="BSR">
@@ -170,9 +164,10 @@
 									<textarea class="form-control" placeholder="comment" id = "otherInfo" name="otherInfo" rows="4"></textarea>
 									<br>
 
+
 								
 									<br>
-									<span class="input-group-btn"><button type="submit"  class="btn btn-primary">Add</button></span>
+									<span class="input-group-btn"><button type="submit"  class="btn btn-primary">Update</button></span>
 									</form>
 
 									</div>
@@ -208,6 +203,77 @@
 
 
 check_privilege("addResearchData");
+
+initialRedata();
+
+
+function initialRedata()
+{   
+    var url = window.location.href;
+    var str = url.split("=");
+    var reId= str[1];
+
+    fillRedata(reId);
+
+}
+
+
+function fillRedata(reId)
+{
+    
+    $.ajax({
+        type: "POST",
+        url: "php/researchDataOperations.php",
+        data: {id:reId,type:"getResearchData"},
+        dataType: "json",
+        success:function(data){
+
+
+
+            var row = data[0];
+            var element;
+
+            element = document.getElementById('reId');
+            element.value=row.ResultId;
+
+            element = document.getElementById('proName');
+            element.value=row.productName;
+
+            element = document.getElementById('BSR');
+            element.value=row.BSR;
+            
+            element = document.getElementById('AliBusinessCard');
+            element.value=row.AliBusinessCard;
+
+            element = document.getElementById('Seller');
+            element.value=row.Seller;
+
+         	element = document.getElementById('sellerPrice');
+            element.value=row.sellerPrice;
+
+            element = document.getElementById('AliPrice');
+            element.value=row.AliPrice;
+
+
+            element = document.getElementById('fba');
+            element.value=row.FBA_fees;
+
+          
+            element = document.getElementById('estProfit');
+            element.value=row.estProfit;
+
+            element = document.getElementById('otherInfo');
+            element.value=row.OtherInfo;
+            element = document.getElementById('Life_cycle');
+            element.value=row.life_cycle;
+
+           
+
+        }
+    });
+}
+
+
 
 function log_out()
 {

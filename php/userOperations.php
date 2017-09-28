@@ -13,6 +13,7 @@ switch ($type) {
 		break;
 
 	case "register":
+
 		user_Register();
 		break;
 
@@ -35,8 +36,16 @@ switch ($type) {
 		break;
 
 	case "list":
-		$Message = list_userInfo();
-		echo json_encode($Message);
+		session_start();
+		$curUser= $_SESSION["username"];
+		$allowUser = "admin";
+		if(strcmp('admin', $curUser) != 0)
+			echo json_encode("false");
+		else
+		{
+			$Message = list_userInfo();
+			echo json_encode($Message);
+		}	
 		break;
 
 	case "log_out":
@@ -58,7 +67,17 @@ function log_out()
 }
 
 function user_Register()
-{
+{	
+	session_start();
+	$curUser= $_SESSION["username"];
+	$allowUser = "admin";
+	if(strcmp('admin', $curUser) != 0)
+		echo "<script>
+			
+			window.location.href='../index.php';
+			alert('You do not have permission to register account!');
+			</script>";
+	else{
 	$username = $_POST['username'];
 	$password = $_POST['password'];
 
@@ -92,6 +111,7 @@ function user_Register()
 			window.location.href='../register.php';
 			</script>";
 	}
+}
 }
 
 function list_userInfo()

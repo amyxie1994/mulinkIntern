@@ -4,9 +4,10 @@ include "database.php";
 class competitorManager
 {
 	
-	public function addCompetitor($BrandName,$BSR,$Sales,$Price,$Size,$LaunchDay,$Link,$Review,$Pros,$Cons,$ResultId)
+	public function addCompetitor($BrandName,$BSR,$Sales,$Size,$LaunchDay,$Link,$Review,$Pros,$Cons,$ResultId)
 	{
-		$sql = "INSERT INTO competitor_analysis(BrandName,BSR,Sales,Price,Size,LaunchDay,Link,Review,Pros,Cons,ResultId) VALUES('$BrandName','$BSR','$Sales','$Price','$Size','$LaunchDay','$Link','$Review','$Pros','$Cons','$ResultId');";
+		$Create_time=date("y:m:d:h:m:sa");
+		$sql = "INSERT INTO competitor_analysis(BrandName,BSR,Sales,Size,LaunchDay,Link,Review,Pros,Cons,ResultId,Create_time) VALUES('$BrandName','$BSR','$Sales','$Size','$LaunchDay','$Link','$Review','$Pros','$Cons','$ResultId','$Create_time');";
 
 	 
 		return $this->execute($sql);

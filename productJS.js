@@ -25,6 +25,7 @@ function getProductList(supplierId)
         	var imgNum;
         	var price;
 
+
         	var old_tbody = document.getElementById("dTable").getElementsByTagName("tbody")[0];
     		var tbody = document.createElement('tbody');
     		var table = document.getElementById("dTable");
@@ -36,7 +37,7 @@ function getProductList(supplierId)
         		productId = data[i].ProductId;
 
         		name = data[i].ProductName;
-        		proSize = data[i].ProductSize;
+        		proSize = data[i].Size;
         		QTY = data[i].QTY;
         		packing = data[i].Packing;
         		model =data[i].Model;
@@ -47,7 +48,7 @@ function getProductList(supplierId)
         		mainkw = getMainKW(productId);
         		otherkw = getOtherKW(productId);
         		
-        		appendProductInfo(tbody,productId,name,mainkw,otherkw,price,proSize,QTY,packing,model,imgNum)
+        		appendProductInfo(tbody,productId,name,mainkw,otherkw,price,proSize,QTY,packing,model,imgNum,row.Create_time)
         	}
 
         	table.replaceChild(tbody,old_tbody);
@@ -55,7 +56,7 @@ function getProductList(supplierId)
     });
 }
 
-function appendProductInfo(tbody,productId,name,mainkw,otherkw,price,proSize,QTY,packing,model,imgNum)
+function appendProductInfo(tbody,productId,name,mainkw,otherkw,price,proSize,QTY,packing,model,imgNum,Create_time)
 {
 	
 	var row = tbody.insertRow(0);
@@ -76,27 +77,32 @@ function appendProductInfo(tbody,productId,name,mainkw,otherkw,price,proSize,QTY
   cell1.appendChild(link);
 
   cell = row.insertCell(2);
- 	cell.innerHTML = mainkw;
+  cell.innerHTML = model;
 
  	cell = row.insertCell(3);
- 	cell.innerHTML = otherkw;
+  cell.innerHTML = mainkw;
+ 	
 
  	cell = row.insertCell(4);
- 	cell.innerHTML = price;
+  cell.innerHTML = otherkw;
+ 	
 
  	cell = row.insertCell(5);
- 	cell.innerHTML = proSize;
+ 	cell.innerHTML = price;
 
  	cell = row.insertCell(6);
- 	cell.innerHTML = QTY;
+ 	cell.innerHTML = proSize;
 
  	cell = row.insertCell(7);
- 	cell.innerHTML = packing;
+ 	cell.innerHTML = QTY;
 
  	cell = row.insertCell(8);
- 	cell.innerHTML = model;
+ 	cell.innerHTML = packing;
 
- 	cell = row.insertCell(9);
+  cell = row.insertCell(9);
+  cell.innerHTML = Create_time;
+
+ 	cell = row.insertCell(10);
  	var pic = document.createElement("IMG");
  	var path;
  	if(imgNum==0){
@@ -118,7 +124,7 @@ function appendProductInfo(tbody,productId,name,mainkw,otherkw,price,proSize,QTY
  	cell.appendChild(pic);
 
 
- 	cell = row.insertCell(10);
+ 	cell = row.insertCell(11);
  	var btn = document.createElement('button');
  	btn.className = "btn btn-danger btn-xs";
  	btn.onclick = function(){
@@ -148,6 +154,7 @@ function deleteProduct(productId)
   			}
   			else
   				alert("Fail to delete, pleaze try again!");
+          location.reload();
   		}
   	});
 }
@@ -176,41 +183,39 @@ function clickProductFunction(id) {
         element.innerHTML = "<b>Name: </b>"+row.ProductName;
         
         element = document.getElementById('mainkw');
-        element.innerHTML = "<b>Main keyword: </b>"+getMainKW(row.ProductId);
-
         element = document.getElementById('otherkw');
         element.innerHTML = "<b>Other keyword:</b> "+getOtherKW(row.ProductId);
 
         element = document.getElementById('craft');
-        element.innerHTML = "<b>Craft: </b>"+row.Craft;
+        element.innerHTML = "<b>Material: </b>"+row.Craft;
 
         element = document.getElementById('psize');
-        element.innerHTML = "<b>Product Size:</b>"+row.ProductSize;
+        element.innerHTML = "<b>CBM/CTN:</b>"+row.ProductSize;
 
         element = document.getElementById('price');
-        element.innerHTML = "<b>Price:</b>"+row.Price;
+        element.innerHTML = "<b>FOB fees(USD):</b>"+row.Price;
 
         element = document.getElementById('Size2');
         element.innerHTML = "<b>Size:</b>"+row.Size;
 
         element = document.getElementById('PLt2');
-        element.innerHTML = "<b>Production Limition Time:</b>"+row.ProductionLt;
+        element.innerHTML = "<b>Thickness:</b>"+row.ProductionLt;
 
 
         element = document.getElementById('SLt');
-        element.innerHTML = "<b>Sample Limition Time:</b>"+row.SampleLt;
+        element.innerHTML = "<b>Port:</b>"+row.SampleLt;
 
         element = document.getElementById('Csize2');
         element.innerHTML = "<b>Carton size:</b>"+row.CartonSize;
 
         element = document.getElementById('Model2');
-        element.innerHTML = "<b>Model:</b>"+row.Model;
+        element.innerHTML = "<b>Model No:</b>"+row.Model;
 
         element = document.getElementById('QTY2');
         element.innerHTML = "<b>QTY:</b>"+row.QTY;
 
         element = document.getElementById('Packing2');
-        element.innerHTML = "<b>Packing:</b>"+row.Packing;
+        element.innerHTML = "<b>PCs/CTN:</b>"+row.Packing;
 
         element = document.getElementById('comment');
         element.innerHTML = "<b>Other information:</b>"+row.OtherInfo;
@@ -280,6 +285,7 @@ function concatOtherKeyword(data)
 }
 
 function getMainKW(ProductId){
+
 	var kw = "null";
 	$.ajax({
   		type: "POST",
@@ -288,6 +294,7 @@ function getMainKW(ProductId){
         async:false,
   		data:{type:"getMainKW",query:ProductId},
   		success: function(data){
+       // alert(data);
   			kw = data[0].Keyword;
   		}
 

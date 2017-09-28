@@ -40,7 +40,7 @@
 					<ul class="nav navbar-nav navbar-right">
 
 						<li>
-							<a href="#"><img src="assets/img/user.jpg" class="img-circle" alt="Avatar"> <span><?php session_start(); echo $_SESSION["username"];?></span></a>
+							<a href="#"><img src="assets/img/user.jpg" class="img-circle" alt="Avatar"> </a>
 						</li>
 							
 						
@@ -57,7 +57,7 @@
 					<ul class="nav">
 						<li><a href="index.php" class=""><i class="lnr lnr-home"></i> <span>Overview</span></a></li>
 						<li>
-							<a href="#subPages1" data-toggle="collapse" class="collapsed"><i class="lnr lnr-dice"></i><span>Supplier Data Mgmt</span> <i class="icon-submenu lnr lnr-chevron-left"></i></a>
+							<a href="#subPages1" data-toggle="collapse" class="collapsed  active"><i class="lnr lnr-dice"></i><span>Supplier Data Mgmt</span> <i class="icon-submenu lnr lnr-chevron-left"></i></a>
 							<div id="subPages1" class="collapse ">
 								<ul class="nav">
 									<li><a href="addSupplier.php" class="">Add Supplier</a></li>
@@ -77,17 +77,17 @@
 							</div>
 						</li>
 						<li>
-							<a href="#subPages3" data-toggle="collapse" class="collapsed active"><i class="lnr lnr-user"></i><span>User Management</span> <i class="icon-submenu lnr lnr-chevron-left"></i></a>
+							<a href="#subPages3" data-toggle="collapse" class="collapsed"><i class="lnr lnr-user"></i><span>User Management</span> <i class="icon-submenu lnr lnr-chevron-left"></i></a>
 							<div id="subPages3" class="collapse ">
 								<ul class="nav">
-									<li><a href="#" class="">Register new account</a></li>
+									<li><a href="register.php" class="">Register new account</a></li>
 									<li><a href="userInfo.php" class="">User List</a></li>
 									
 								</ul>
 							</div>
 						</li>
 						
-						<li><a href="icons.html" class=""><i class="lnr lnr-linearicons"></i> <span>Add Source</span></a></li>
+						<li><a href="addSource.php" class=""><i class="lnr lnr-linearicons"></i> <span>Add Source</span></a></li>
 					</ul>
 				</nav>
 			</div>
@@ -109,34 +109,34 @@
 								</div>
 								<div class="panel-body">
 								<form class="form-horizontal" action="php/supplierOperations.php" method="post">
-								<input type="hidden" class="form-control" placeholder="text field" id = "type" name ="type" value = "addSupplier">
+								<input type="hidden" class="form-control" id = "type" name ="type" value = "addSupplier">
 								Company Name:
 								<br>
-									<input type="text" class="form-control" placeholder="text field" id = "comName" name ="comName">
+									<input type="text" class="form-control"  id = "comName" name ="comName">
 								<br>
 								Address:
 									<br>
-									<input type="text" class="form-control" placeholder="address field" id="address" name="address">
+									<input type="text" class="form-control"  id="address" name="address">
 									<br>
 
 								Contact Person:
 									<br>
-									<input type="text" placeholder="someone: xxx" class="form-control"  id="conPerson" name="conPerson">
+									<input type="text"  class="form-control"  id="conPerson" name="conPerson">
 									<br>
 
 								Email:
 									<br>
-									<input type="email" class="form-control" placeholder="eg: name@gmail.com" id="email" name="email">
+									<input type="email" class="form-control"  id="email" name="email">
 									<br>
 
 								Source(Alibaba) Site:
 									<br>
-									<input type="text" placeholder="address on alibaba" class="form-control"  id="aliSite" name="aliSite">
+									<input type="text" class="form-control"  id="aliSite" name="aliSite">
 									<br>
 
 								Ebsite:
 									<br>
-									<input type="text" placeholder="company website address" class="form-control"  id="ebsite" name="ebsite">
+									<input type="text"  class="form-control"  id="ebsite" name="ebsite">
 									<br>
 
 								Skype:
@@ -163,7 +163,7 @@
 <br>
 								Other Information:
 									<br>
-									<textarea class="form-control" placeholder="comment" id = "otherInfo" name="otherInfo" rows="4"></textarea>
+									<textarea class="form-control"  id = "otherInfo" name="otherInfo" rows="4"></textarea>
 									<br>
 
 								
@@ -197,6 +197,7 @@
 	<script src="assets/vendor/chartist/js/chartist.min.js"></script>
 	<script src="assets/scripts/klorofil-common.js"></script>
 			<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+			<script src="permissionJS.js"></script>
 	<script>
 function log_out()
 {
@@ -210,6 +211,9 @@ function log_out()
         }
 	});
 }
+
+check_privilege("addSupplier");
+
 </script>
 </body>
 

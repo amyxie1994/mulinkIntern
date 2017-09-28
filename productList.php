@@ -202,7 +202,6 @@ img.hover-shadow {
 
 	<!-- WRAPPER -->
 	<div id="wrapper">
-
 		<!-- NAVBAR -->
 		<nav class="navbar navbar-default navbar-fixed-top">
 			<div class="brand">
@@ -212,22 +211,17 @@ img.hover-shadow {
 				<div class="navbar-btn">
 					<button type="button" class="btn-toggle-fullwidth"><i class="lnr lnr-arrow-left-circle"></i></button>
 				</div>
-				<form class="navbar-form navbar-left">
-					<div class="input-group">
-						<input type="text" value="" class="form-control" placeholder="Search dashboard...">
-						<span class="input-group-btn"><button type="button" class="btn btn-primary">Go</button></span>
-					</div>
-				</form>
+			
 				
 				<div id="navbar-menu">
 					<ul class="nav navbar-nav navbar-right">
 
 						<li>
-							<a href="#"><img src="assets/img/user.jpg" class="img-circle" alt="Avatar"> <span>Admin</span></a>
+							<a href="#"><img src="assets/img/user.jpg" class="img-circle" alt="Avatar"> </a>
 						</li>
 							
 						
-						<li><a href="#"><i class="lnr lnr-exit"></i> <span>Logout</span></a></li>
+						<li><a href="#"><i class="lnr lnr-exit"></i><button onclick= "log_out()">Logout</button></li>
 					</ul>
 				</div>
 			</div>
@@ -238,23 +232,23 @@ img.hover-shadow {
 			<div class="sidebar-scroll">
 				<nav>
 					<ul class="nav">
-						<li><a href="index.html" class="active"><i class="lnr lnr-home"></i> <span>Overview</span></a></li>
+						<li><a href="index.php" class=""><i class="lnr lnr-home"></i> <span>Overview</span></a></li>
 						<li>
 							<a href="#subPages1" data-toggle="collapse" class="collapsed"><i class="lnr lnr-dice"></i><span>Supplier Data Mgmt</span> <i class="icon-submenu lnr lnr-chevron-left"></i></a>
 							<div id="subPages1" class="collapse ">
 								<ul class="nav">
-									<li><a href="page-profile.html" class="">Add Supplier</a></li>
-									<li><a href="page-login.html" class="">Supplier List/Searching</a></li>
+									<li><a href="addSupplier.php" class="">Add Supplier</a></li>
+									<li><a href="supplierInfo.php" class="">Supplier List/Searching</a></li>
 									
 								</ul>
 							</div>
 						</li>
 						<li>
-							<a href="#subPages2" data-toggle="collapse" class="collapsed"><i class="lnr lnr-file-empty"></i> <span>Research Data Mgmt</span> <i class="icon-submenu lnr lnr-chevron-left"></i></a>
+							<a href="#subPages2" data-toggle="collapse" class="collapsed active"><i class="lnr lnr-file-empty"></i> <span>Research Data Mgmt</span> <i class="icon-submenu lnr lnr-chevron-left"></i></a>
 							<div id="subPages2" class="collapse ">
 								<ul class="nav">
-									<li><a href="#" class="">Add Research Data</a></li>
-									<li><a href="page-login.html" class="">Data List/Searching</a></li>
+									<li><a href="addResearchData.php" class="">Add Research Data</a></li>
+									<li><a href="#" class="">Data List/Searching</a></li>
 									
 								</ul>
 							</div>
@@ -263,14 +257,14 @@ img.hover-shadow {
 							<a href="#subPages3" data-toggle="collapse" class="collapsed"><i class="lnr lnr-user"></i><span>User Management</span> <i class="icon-submenu lnr lnr-chevron-left"></i></a>
 							<div id="subPages3" class="collapse ">
 								<ul class="nav">
-									<li><a href="#" class="">Register new account</a></li>
+									<li><a href="register.php" class="">Register new account</a></li>
 									<li><a href="userInfo.php" class="">User List</a></li>
 									
 								</ul>
 							</div>
 						</li>
 						
-						<li><a href="icons.html" class=""><i class="lnr lnr-linearicons"></i> <span>Add Source</span></a></li>
+						<li><a href="addSource.php" class=""><i class="lnr lnr-linearicons"></i> <span>Add Source</span></a></li>
 					</ul>
 				</nav>
 			</div>
@@ -302,19 +296,19 @@ img.hover-shadow {
       	</div>
 			<div class="modal-body">	
 				<p id= "name">dsfsd</p> 
-				<p id= "mainkw"></p>
-				<p id= "otherkw"></p>
-				<p id= "craft"></p>
-				<p id= "psize"></p>
-				<p id= "price"></p>
-				<p id= "Size2"></p>
-				<p id= "PLt2"></p>
-				<p id= "SLt"></p>
-				<p id= "Csize2"></p>
-				<p id= "Model2"></p>
-				<p id= "QTY2"></p>
-				<p id= "Packing2"></p>
-				<p id= "comment"></p>	
+        <p id= "Model2"></p>
+        <p id= "mainkw"></p>
+        <p id= "otherkw"></p>
+        <p id= "craft"></p>
+        <p id= "PLt2"></p>
+        <p id= "Size2"></p>
+        <p id= "Csize2"></p>
+        <p id= "price"></p>
+        <p id= "SLt"></p>
+        <p id= "psize"></p>
+        <p id= "Packing2"></p>
+        <p id= "QTY2"></p>
+        <p id= "comment"></p> 
 			</div>
 			</div>
 </div>
@@ -349,15 +343,15 @@ img.hover-shadow {
                                 <table class="table table-striped table-bordered table-hover" id="dTable">
                                     <thead>
                                         <tr>
-                                            <th>Name</th>
+                                           <th>Name</th>
+                                            <th>Model</th>
                                             <th>Main KeyWords</th>
                                             <th>OtherKeywords</th>
-                                            <th>Price</th>
+                                            <th>FOB Price</th>
                                             <th>Product Size</th>
                                             <th>QTY</th>
-                                            <th>Packing</th>
-                                            <th>Model</th>
-                                            <th>Image</th>                                      
+                                            <th>PCs/CTN</th> 
+                                            <th>Image</th>                                       
                                             <th>Supplier</th>
                                         </tr>
                                     </thead>
@@ -402,6 +396,18 @@ img.hover-shadow {
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script> 
     <script src="productJS.js"></script> 
 	<script type="text/javascript">
+function log_out()
+{
+	$.ajax({
+		type: "POST",
+        url: "php/userOperations.php",
+        data: {type:"log_out"},
+        dataType: "json",
+        success:function(data){
+        	window.location.href = "login.html";
+        }
+	});
+}
 
 load_productList();
 
@@ -432,7 +438,7 @@ function load_productList()
             	mainkw = getMainKW(id);
             	otherkw = getOtherKW(id);
             	price = row.Price;
-            	psize = row.ProductSize;
+            	psize = row.Size;
             	qty = row.QTY;
             	packing = row.Packing;
             	model = row.Model;
@@ -473,25 +479,27 @@ function InitialProductList(tbody,id,name,mainkw,otherkw,price,psize,qty,packing
  	//cell.innerHTML = name;
 
  	cell = row.insertCell(2);
- 	cell.innerHTML = mainkw;
+ 	cell.innerHTML = model;
 
  	cell = row.insertCell(3);
- 	cell.innerHTML = otherkw;
+ 	cell.innerHTML = mainkw;
 
- 	cell = row.insertCell(4);
- 	cell.innerHTML = price;
+  cell = row.insertCell(4);
+  cell.innerHTML = mainkw;
 
  	cell = row.insertCell(5);
- 	cell.innerHTML = psize;
+ 	cell.innerHTML = price;
 
  	cell = row.insertCell(6);
- 	cell.innerHTML = qty;
+ 	cell.innerHTML = psize;
 
  	cell = row.insertCell(7);
- 	cell.innerHTML = packing;
+ 	cell.innerHTML = qty;
 
  	cell = row.insertCell(8);
- 	cell.innerHTML = model;
+ 	cell.innerHTML = packing;
+
+ 
  	
  	cell = row.insertCell(9);
  	var pic = document.createElement("IMG");

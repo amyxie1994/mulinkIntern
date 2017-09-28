@@ -1,6 +1,6 @@
 <?php
 
-include "database.php";
+include_once "database.php";
 
 class productManager{
 
@@ -24,7 +24,7 @@ class productManager{
 
 	public function getMainKW($productID)
 	{
-
+		
 		$sql = "SELECT Keyword FROM keyword INNER JOIN Main_kw ON keyword.KwId = Main_kw.Kw_id WHERE Main_kw.Product_id = '$productID' ;";
 		$result = $this->execute($sql);
 		return $this->get_data($result);
@@ -43,10 +43,12 @@ class productManager{
 
 	public function addProduct($name,$SupplierId,$Craft,$Psize,$STime,$Price,$Size,$PLt,$SampleSize,$Model,$QTY,$Packing,$OtherInfo,$Res_Mark)
 	{	
-		
+		session_start();
+		$Creator = $_SESSION["username"];
+		$Create_time=date("y:m:d:h:m:sa");
 		$ProductId = $this->addProductName($name);
 
-		$sql = "INSERT INTO product_info(ProductId,ProductName,Craft,ProductSize,Price,Size,ProductionLt,OtherInfo,SampleLt,CartonSize,Model,SupplierId,QTY,Packing,Res_Mark) VALUES('$ProductId','$name','$Craft','$Psize','$Price','$Size','$PLt','$OtherInfo','$STime','$SampleSize','$Model','$SupplierId','$QTY','$Packing','$Res_Mark');";
+		$sql = "INSERT INTO product_info(ProductId,ProductName,Craft,ProductSize,Price,Size,ProductionLt,OtherInfo,SampleLt,CartonSize,Model,SupplierId,QTY,Packing,Res_Mark,Creator,Create_time) VALUES('$ProductId','$name','$Craft','$Psize','$Price','$Size','$PLt','$OtherInfo','$STime','$SampleSize','$Model','$SupplierId','$QTY','$Packing','$Res_Mark','$Creator','$Create_time');";
 		
 		if($this->execute($sql))
 		{	
@@ -67,12 +69,16 @@ class productManager{
 	}*/
 
 
-	public function getProductInfo($list)
+	public function getProductInfo($list,$user,$permission)
 	{	
 		$result = [];
 		for($i=0,$j=0;$i<count($list);$i++)
 		{
-			$sql = "SELECT * FROM product_info  INNER JOIN supplier ON supplier.SupplierId = product_info.SupplierId WHERE product_info.ProductId= '$list[$i]';";
+			if($permission)
+				$sql = "SELECT * FROM product_info  INNER JOIN supplier ON supplier.SupplierId = product_info.SupplierId WHERE product_info.ProductId= '$list[$i]';";
+			else
+				$sql = "SELECT * FROM product_info  INNER JOIN supplier ON supplier.SupplierId = product_info.SupplierId WHERE product_info.ProductId= '$list[$i]' and supplier.Creator = '$user';";
+
 			$source = $this->execute($sql);
 			$data = $this->get_data($source);
 			if(count($data)>0)
@@ -110,7 +116,7 @@ class productManager{
 			{
 				$sql = "DELETE FROM other_kw WHERE Product_id = '$productId';";
 				$result = $this->execute($sql);
-				$sql = "DELETE FROM product WHERE Product_id = '$productId';";
+				$sql = "DELETE FROM product WHERE id = '$productId';";
 				return $this->execute($sql);
 
 			}

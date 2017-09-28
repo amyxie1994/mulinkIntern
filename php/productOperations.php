@@ -4,6 +4,8 @@ include "productManagement.php";
 include "keywordManagement.php";
 include "fileOperations.php";
 include "functions.php";
+include "userManagement.php";
+
 
 $type=$_POST['type'];
 //echo json_encode($type);
@@ -67,8 +69,15 @@ function loadProductList()
 	$keywordList = $keywordManager->getKeywordList($query);
 
 	$result = $keywordManager->getProductInfoByKW($keywordList);
+
+	$userManager = new userManager();
+	session_start();
+	$user = $_SESSION["username"];
+	$userInfo = $userManager->get_info_basedOnName($user);
+	$permission = $userInfo[0]["vOrS_a_sudata"];
+
 	$productManager = new productManager();
-	return $productManager->getProductInfo($result);
+	return $productManager->getProductInfo($result,$user,$permission);
 
 	//return $result;
 }
@@ -96,7 +105,7 @@ function addProduct()
 	$PLt = $_POST["PLt"];
 
 	$SampleSize = $_POST["Csize"];
-	$Model = $_POST["Csize"];
+	$Model = $_POST["Model"];
 	
 	$QTY = $_POST["QTY"];
 	$Packing = $_POST["Packing"];
@@ -118,12 +127,14 @@ function addProduct()
 		updateImgNum($productId,$imgNum);
 
 		echo "<script>
+		window.location =\"../addProduct.php?supplier_id=".$SupplierId."\";
 		alert('Add Successfully!');
 		</script>";
 	}
 	else
 	{ 
 		echo "<script>
+		window.location =\"../addProduct.php?supplier_id=".$SupplierId."\";
 		alert('Add Product into qutation failed, Please try again later!');
 		location.reload();
 		</script>";

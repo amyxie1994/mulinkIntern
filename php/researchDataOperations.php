@@ -4,6 +4,8 @@ include "productManagement.php";
 include "researchDataManagement.php";
 include "keywordManagement.php";
 include "functions.php";
+include "userManagement.php";
+
 
 $type=$_POST['type'];
 
@@ -19,6 +21,10 @@ switch ($type) {
 		addResearchData();		
 		break;
 
+	case "updateResearchData":
+		updateResearchData();		
+		break;
+
 	case "deleteResearchData":
 		$Message = deleteData();
 		echo json_encode($Message);
@@ -32,11 +38,40 @@ switch ($type) {
 		$result = getResearchData();
 		echo json_encode($result);
 		break;
+
+	case "filter":
+		$result = filterSearch();
+		echo json_encode($result);
+		break;
 	
 	default:
 		$Message = "Unknown operations!";
 		echo json_encode($Message);
 		break;
+}
+
+
+function filterSearch()
+{
+	$name= $_POST["name"];
+	$kw = $_POST["keyword"];
+	$LBSR = $_POST["LBSR"];
+	$HBSR = $_POST["HBSR"];
+	$LSales = $_POST["LSales"];
+	$HSales = $_POST["HSales"];
+	$LAPrice = $_POST["LAPrice"];
+	$HAPrice = $_POST["HAPrice"];
+	$LFBA = $_POST["LFBA"];
+	$HFBA = $_POST["HFBA"];
+	$LEST = $_POST["LEST"];
+	$HEST = $_POST["HEST"];
+	$LLC = $_POST["LLC"];
+	$HLC = $_POST["HLC"];
+
+	$reDataManager = new researchDataManager();
+
+	return $reDataManager->filterSearch($name,$kw ,$LBSR ,$HBSR ,$LSales ,$HSales ,$LAPrice ,$HAPrice ,$LFBA ,$HFBA ,$LEST ,$HEST ,$LLC ,$HLC);
+
 }
 
 function getResearchData()
@@ -45,6 +80,35 @@ function getResearchData()
 	$reDataManager = new researchDataManager();
 
 	return $reDataManager->getResearchData($id);
+}
+
+function updateResearchData()
+{
+	$id = $_POST["reId"];
+	$name= $_POST["proName"];
+	$AliBusinessCard= $_POST["AliBusinessCard"];
+	$Seller= $_POST["Seller"];
+	$sellerPrice=floatval($_POST["sellerPrice"]);
+	$AliPrice= floatval($_POST["AliPrice"]);
+	
+	$BSR = (int)$_POST["BSR"];
+	$fba=floatval($_POST["fba"]);
+	$estProfit=floatval($_POST["estProfit"]);
+	$Life_cycle= (int)$_POST["Life_cycle"];
+	$otherInfo= $_POST["otherInfo"];
+
+	$reDataManager = new researchDataManager();	
+	if($reDataManager->updateResearchData($id,$name,$AliBusinessCard,$Seller,$sellerPrice,$AliPrice,$fba,$estProfit,$Life_cycle,$otherInfo,$BSR))
+		echo "<script>
+		window.location.href='../researchDataInfo.php';
+			alert('Update Successfully!');
+			</script>";
+	else
+		echo "<script>
+			
+			window.location.href='../editResearchData.php?reId=".$id."';
+			alert('Update  failed, Please try again later!');
+			</script>";
 }
 
 function quickSearchData()
@@ -68,30 +132,41 @@ function deleteData()
 }
 
 function listData()
-{
+{	
+	session_start();
+	$user = $_SESSION["username"];
+
+	$userManager = new userManager();
+	$userInfo = $userManager->get_info_basedOnName($user);
+	$permission = $userInfo[0]["vOrS_a_redata"];
+
 	$reDataManager = new researchDataManager();
-	return $reDataManager->listData();
+	return $reDataManager->listData($user,$permission);
 }
 
 function addResearchData()
 {
 
 	$name= $_POST["proName"];
-	$indcost= $_POST["indcost"];
-	$QTY= $_POST["QTY"];
-	$sampleCost= $_POST["sampleCost"];
-	$addUnitPrice= $_POST["addUnitPrice"];
-	$fba= $_POST["fba"];
-	$totalCost= $_POST["totalCost"];
-	$estProfit= $_POST["estProfit"];
-	$Life_cycle= $_POST["Life_cycle"];
+	$AliBusinessCard= $_POST["AliBusinessCard"];
+	$Seller= $_POST["Seller"];
+	$sellerPrice=floatval($_POST["sellerPrice"]) ;
+	$AliPrice= floatval($_POST["AliPrice"]);
+	
+	$BSR = (int)$_POST["BSR"];
+	$fba=floatval($_POST["fba"]);
+	$estProfit=floatval($_POST["estProfit"]);
+	$Life_cycle= (int)$_POST["Life_cycle"];
 	$otherInfo= $_POST["otherInfo"];
+	session_start();
+	$Creator = $_SESSION["username"];
 
 	
 	
 	$productManager = new productManager();
 	$productId = $productManager->addProductName($name);
 
+	
 
 
 	if($productId!=0)
@@ -102,21 +177,25 @@ function addResearchData()
 
 		updateKw($productId,$mainKw,$otherKw);
 		
-		if($reDataManager->addResearchData($productId,$name,$indcost,$QTY,$sampleCost,$addUnitPrice,$fba,$totalCost,$estProfit,$Life_cycle,$otherInfo))
+
+		if($reDataManager->addResearchData($productId,$name,$AliBusinessCard,$Seller,$sellerPrice,$AliPrice,$fba,$estProfit,$Life_cycle,$otherInfo,$Creator,$BSR))
 			echo "<script>
+		window.location.href='../researchDataInfo.php';
 			alert('Add Successfully!');
 			</script>";
 		else
 			echo "<script>
+			
+			window.location.href='../addResearchData.php';
 			alert('Add Product into qutation failed, Please try again later!');
-			location.reload();
 			</script>";
 	}
 	else
 	{ 
 		echo "<script>
-		alert('Add Product into qutation failed, Please try again later!');
-		location.reload();
+	
+		window.location.href='../addResearchData.php';
+			alert('Add Product into qutation failed, Please try again later!');
 		</script>";
 	}
 	

@@ -37,8 +37,7 @@
 </head>
 
 <body>
-	<!-- WRAPPER -->
-	<div id="wrapper">
+<div id="wrapper">
 		<!-- NAVBAR -->
 		<nav class="navbar navbar-default navbar-fixed-top">
 			<div class="brand">
@@ -48,17 +47,17 @@
 				<div class="navbar-btn">
 					<button type="button" class="btn-toggle-fullwidth"><i class="lnr lnr-arrow-left-circle"></i></button>
 				</div>
-				
+			
 				
 				<div id="navbar-menu">
 					<ul class="nav navbar-nav navbar-right">
 
 						<li>
-							<a href="#"><img src="assets/img/user.jpg" class="img-circle" alt="Avatar"> <span>Admin</span></a>
+							<a href="#"><img src="assets/img/user.jpg" class="img-circle" alt="Avatar"> <span><?php session_start(); echo $_SESSION["username"];?></span></a>
 						</li>
 							
 						
-						<li><a href="#"><i class="lnr lnr-exit"></i> <span>Logout</span></a></li>
+						<li><a href="#"><i class="lnr lnr-exit"></i><button onclick= "log_out()">Logout</button></li>
 					</ul>
 				</div>
 			</div>
@@ -69,13 +68,13 @@
 			<div class="sidebar-scroll">
 				<nav>
 					<ul class="nav">
-						<li><a href="index.html" class="active"><i class="lnr lnr-home"></i> <span>Overview</span></a></li>
+						<li><a href="index.php" class=""><i class="lnr lnr-home"></i> <span>Overview</span></a></li>
 						<li>
-							<a href="#subPages1" data-toggle="collapse" class="collapsed"><i class="lnr lnr-dice"></i><span>Supplier Data Mgmt</span> <i class="icon-submenu lnr lnr-chevron-left"></i></a>
+							<a href="#subPages1" data-toggle="collapse" class="collapsed active"><i class="lnr lnr-dice"></i><span>Supplier Data Mgmt</span> <i class="icon-submenu lnr lnr-chevron-left"></i></a>
 							<div id="subPages1" class="collapse ">
 								<ul class="nav">
-									<li><a href="page-profile.html" class="">Add Supplier</a></li>
-									<li><a href="page-login.html" class="">Supplier List/Searching</a></li>
+									<li><a href="addSupplier.php" class="">Add Supplier</a></li>
+									<li><a href="#" class="">Supplier List/Searching</a></li>
 									
 								</ul>
 							</div>
@@ -84,8 +83,8 @@
 							<a href="#subPages2" data-toggle="collapse" class="collapsed"><i class="lnr lnr-file-empty"></i> <span>Research Data Mgmt</span> <i class="icon-submenu lnr lnr-chevron-left"></i></a>
 							<div id="subPages2" class="collapse ">
 								<ul class="nav">
-									<li><a href="#" class="">Add Research Data</a></li>
-									<li><a href="page-login.html" class="">Data List/Searching</a></li>
+									<li><a href="addResearchData.php" class="">Add Research Data</a></li>
+									<li><a href="researchDataInfo.php" class="">Data List/Searching</a></li>
 									
 								</ul>
 							</div>
@@ -95,13 +94,13 @@
 							<div id="subPages3" class="collapse ">
 								<ul class="nav">
 									<li><a href="register.php" class="">Register new account</a></li>
-									<li><a href="page-login.html" class="">Edit User Info</a></li>
+									<li><a href="userInfo.php" class="">User List</a></li>
 									
 								</ul>
 							</div>
 						</li>
 						
-						<li><a href="icons.html" class=""><i class="lnr lnr-linearicons"></i> <span>Add Source</span></a></li>
+						<li><a href="addSource.php" class=""><i class="lnr lnr-linearicons"></i> <span>Add Source</span></a></li>
 					</ul>
 				</nav>
 			</div>
@@ -186,6 +185,21 @@
   <script src="//code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
 <script type="text/javascript">
+
+
+function log_out()
+{
+	$.ajax({
+		type: "POST",
+        url: "php/userOperations.php",
+        data: {type:"log_out"},
+        dataType: "json",
+        success:function(data){
+        	window.location.href = "login.html";
+        }
+	});
+}
+
 $(function() {
 $("#searchSupplier").autocomplete({
   source: function(request, response){ 

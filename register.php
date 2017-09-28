@@ -87,7 +87,7 @@
 							</div>
 						</li>
 						
-						<li><a href="icons.html" class=""><i class="lnr lnr-linearicons"></i> <span>Add Source</span></a></li>
+						<li><a href="addSource.php" class=""><i class="lnr lnr-linearicons"></i> <span>Add Source</span></a></li>
 					</ul>
 				</nav>
 			</div>
@@ -112,7 +112,7 @@
 								<input type="hidden" class="form-control" placeholder="text field" id = "type" name ="type" value = "register">
 								User name:
 								<br>
-									<input type="text" class="form-control" placeholder="text field" id = "username" name ="username">
+									<input type="text" class="form-control" id = "username" name ="username">
 								<br>
 								Password:
 									<br>

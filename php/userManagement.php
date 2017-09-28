@@ -1,5 +1,5 @@
 <?php
-include "database.php";
+include_once "database.php";
 
 
 class userManager
@@ -28,8 +28,8 @@ class userManager
 /**********Register*******************************************/
 
 	public function add_user($username,$password,$add_supOrPro,$add_ReData,$vOrS_a_sudata,$vOrS_o_sudata,$vOrS_a_redata,$vOrS_o_redata)
-	{	date_default_timezone_set("UTC");
-		$create_time = time();
+	{	
+		$create_time=date("y:m:d:h:m:sa");
 		$sql = "INSERT INTO user(Username,Password,add_Supplier,add_ReData,vOrS_a_sudata,vOrS_o_sudata,vOrS_a_redata,vOrS_o_redata,Createtime) VALUES('$username','$password','$add_supOrPro','$add_ReData','$vOrS_a_sudata','$vOrS_o_sudata','$vOrS_a_redata','$vOrS_o_redata','$create_time');";
 
 		$result = $this->execute($sql);
@@ -72,6 +72,13 @@ class userManager
 	public function get_userInfo($user_id)
 	{
 		$sql = "SELECT * FROM user WHERE UserID = '$user_id';";
+		$result = $this->execute($sql);
+		return $this->get_data($result);
+	}
+
+	public function get_info_basedOnName($username)
+	{
+		$sql = "SELECT * FROM user WHERE Username = '$username';";
 		$result = $this->execute($sql);
 		return $this->get_data($result);
 	}

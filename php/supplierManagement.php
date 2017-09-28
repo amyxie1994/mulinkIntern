@@ -1,7 +1,7 @@
 <?php
 
 
-include "database.php";
+include "userManagement.php";
 
 class supplierManager{
 
@@ -25,12 +25,17 @@ class supplierManager{
 		return $this->get_data($result);
 	}
 
-	public function listSupplier()
-	{
-		$sql = "SELECT * FROM supplier ORDER BY ComName DESC;";
+	public function listSupplier($permission,$username)
+	{		
+
+		if ($permission =="all")
+			$sql = "SELECT * FROM supplier ORDER BY ComName DESC;";
+		else 
+			$sql = "SELECT * FROM supplier WHERE Creator = '$username' ORDER BY ComName DESC;";
 		$result = $this->execute($sql);
 		return $this->get_data($result);
 	}
+
 
 
 	public function getEditInfo($supplierId)

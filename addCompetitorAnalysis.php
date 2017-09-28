@@ -74,10 +74,7 @@
 <body>
 
 
-
-	<!-- WRAPPER -->
-	<div id="wrapper">
-
+<div id="wrapper">
 		<!-- NAVBAR -->
 		<nav class="navbar navbar-default navbar-fixed-top">
 			<div class="brand">
@@ -87,22 +84,17 @@
 				<div class="navbar-btn">
 					<button type="button" class="btn-toggle-fullwidth"><i class="lnr lnr-arrow-left-circle"></i></button>
 				</div>
-				<form class="navbar-form navbar-left">
-					<div class="input-group">
-						<input type="text" value="" class="form-control" placeholder="Search dashboard...">
-						<span class="input-group-btn"><button type="button" class="btn btn-primary">Go</button></span>
-					</div>
-				</form>
+			
 				
 				<div id="navbar-menu">
 					<ul class="nav navbar-nav navbar-right">
 
 						<li>
-							<a href="#"><img src="assets/img/user.jpg" class="img-circle" alt="Avatar"> <span>Admin</span></a>
+							<a href="#"><img src="assets/img/user.jpg" class="img-circle" alt="Avatar"> <span><?php session_start(); echo $_SESSION["username"];?></span></a>
 						</li>
 							
 						
-						<li><a href="#"><i class="lnr lnr-exit"></i> <span>Logout</span></a></li>
+						<li><a href="#"><i class="lnr lnr-exit"></i><button onclick= "log_out()">Logout</button></li>
 					</ul>
 				</div>
 			</div>
@@ -113,23 +105,23 @@
 			<div class="sidebar-scroll">
 				<nav>
 					<ul class="nav">
-						<li><a href="index.html" class="active"><i class="lnr lnr-home"></i> <span>Overview</span></a></li>
+						<li><a href="index.php" class=""><i class="lnr lnr-home"></i> <span>Overview</span></a></li>
 						<li>
 							<a href="#subPages1" data-toggle="collapse" class="collapsed"><i class="lnr lnr-dice"></i><span>Supplier Data Mgmt</span> <i class="icon-submenu lnr lnr-chevron-left"></i></a>
 							<div id="subPages1" class="collapse ">
 								<ul class="nav">
-									<li><a href="page-profile.html" class="">Add Supplier</a></li>
-									<li><a href="page-login.html" class="">Supplier List/Searching</a></li>
+									<li><a href="addSupplier.php" class="">Add Supplier</a></li>
+									<li><a href="supplierInfo.php" class="">Supplier List/Searching</a></li>
 									
 								</ul>
 							</div>
 						</li>
 						<li>
-							<a href="#subPages2" data-toggle="collapse" class="collapsed"><i class="lnr lnr-file-empty"></i> <span>Research Data Mgmt</span> <i class="icon-submenu lnr lnr-chevron-left"></i></a>
+							<a href="#subPages2" data-toggle="collapse" class="collapsed active"><i class="lnr lnr-file-empty"></i> <span>Research Data Mgmt</span> <i class="icon-submenu lnr lnr-chevron-left"></i></a>
 							<div id="subPages2" class="collapse ">
 								<ul class="nav">
-									<li><a href="#" class="">Add Research Data</a></li>
-									<li><a href="page-login.html" class="">Data List/Searching</a></li>
+									<li><a href="addResearchData.php" class="">Add Research Data</a></li>
+									<li><a href="researchDataInfo.php" class="">Data List/Searching</a></li>
 									
 								</ul>
 							</div>
@@ -138,14 +130,14 @@
 							<a href="#subPages3" data-toggle="collapse" class="collapsed"><i class="lnr lnr-user"></i><span>User Management</span> <i class="icon-submenu lnr lnr-chevron-left"></i></a>
 							<div id="subPages3" class="collapse ">
 								<ul class="nav">
-									<li><a href="#" class="">Register new account</a></li>
+									<li><a href="register.php" class="">Register new account</a></li>
 									<li><a href="userInfo.php" class="">User List</a></li>
 									
 								</ul>
 							</div>
 						</li>
 						
-						<li><a href="icons.html" class=""><i class="lnr lnr-linearicons"></i> <span>Add Source</span></a></li>
+						<li><a href="addSource.php" class=""><i class="lnr lnr-linearicons"></i> <span>Add Source</span></a></li>
 					</ul>
 				</nav>
 			</div>
@@ -175,26 +167,18 @@
 								<div class="panel-body">
 									<input type="hidden" class="form-control" placeholder="text field" id = "resultId" name ="supplierId" >
 									<p id= "ProName"></p>
+									<p id= "BSR"></p>
 									<p id= "AliBusinessCard"></p>
 									<p id= "Seller"></p>
-                  <p id= "ModNum"></p>
+
 									<p id= "sellerPrice"></p>
 									<p id= "AliPrice"></p>
-                  <p id= "MOQ"></p>
-									<p id= "SearchNo"></p>
-									<p id= "RePageNo"></p>
-									<p id= "AvePage"></p>
-									<p id= "OtherInfo"></p>
+                 								
 									<p id= "FBA_fees"></p>
                   <p id= "Est_profit"></p>
                   <p id= "life_cycle"></p>
-                  <p id= "indcost"></p>
-                  <p id= "QTY"></p>
-                  <p id= "sampleCost"></p>
-                  <p id= "addUnitPrice"></p>
-                  <p id= "totalCost"></p>
-                  <p id= "estProfit"></p>
-                  <p id= "Comments"></p>
+                  <p id= "OtherInfo"></p>
+                  <p id= "Create_time"></p>
 								</div>
                 </div>
 	<div id="myModal" class="modal">
@@ -217,17 +201,15 @@
     </tr>
 
     <tr>
-        <td>BSR</td>
+        <td>BSR(90 days)</td>
         <td> <input type="text"   id = "BSR" name ="BSR"> </td>
         </tr>
         <tr>
-        <td> Sales </td>
+        <td> Sales Price </td>
         <td><input type="text"  id = "Sales" name ="Sales"></td>
    	</tr>
     <tr>
-       <td> Price</td>
-       <td> <input type="text" id = "Price" name ="Price"> </td>
-       </tr>
+       
        <tr>
        <td> Size:</td>
        <td> <input type="text"   id = "Size" name ="Size"></td>
@@ -292,14 +274,14 @@
                                     <thead>
                                         <tr>
                                             <th>BrandName</th>
-                                            <th>BSR</th>
-                                            <th>Sales</th>
-                                            <th>Price</th>
+                                            <th>BSR(90 days)</th>
+                                            <th>Sales Price</th>
                                             <th>Size</th>
-                                            <th>LaunchDay</th>
+                                            <th>Launch Day</th>
                                             <th>Link</th>
-                                            <th>Review</th>
-                                            <th>Pros</th>                      <th>Cons</th>               
+                                            <th>Number of Review</th>
+                                            
+                                            <th>Pros</th>                      <th>Cons</th>     <th>Create time</th>          
                                             <th>Delete</th>
                                         </tr>
                                     </thead>
@@ -343,6 +325,18 @@
   <script src="//code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
  <script src="competitorJS.js"></script>
 	<script type="text/javascript">
+	function log_out()
+{
+	$.ajax({
+		type: "POST",
+        url: "php/userOperations.php",
+        data: {type:"log_out"},
+        dataType: "json",
+        success:function(data){
+        	window.location.href = "login.html";
+        }
+	});
+}
 loadReData();
 
 </script>

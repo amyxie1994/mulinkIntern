@@ -2,6 +2,7 @@
 
 include "supplierManagement.php";
 
+
 $type=$_POST['type'];
 
 	
@@ -118,13 +119,23 @@ function supplierHint()
 }
 
 function listSupplier()
-{
+{	
+	session_start();
+	$username = $_SESSION["username"];
+
+	$userManager = new userManager();
+	$userinfo = $userManager->get_info_basedOnName($username);
+
+	if($userinfo[0]["vOrS_a_sudata"])
+		$permission = "all";
+	else 
+		$permission = "part";
+	//echo json_encode($permission);
+
 	$supManager = new supplierManager();
-
-	$result = $supManager->listSupplier();
+	$result = $supManager->listSupplier($permission,$username);
 	echo json_encode($result);
-
-
+	
 }
 
 
@@ -144,7 +155,8 @@ function addSupplier()
 	$otherInfo = $_POST["otherInfo"];
 	//$creator = $_POST["creator"];
 
-	$creator = "admin";
+	session_start();
+	$creator = $_SESSION["username"];
 	$supManager = new supplierManager();
 	$result = $supManager->addSupplier($comName,$address,$email,$conPerson,$aliSite,$ebsite,$skype,$fax,$phoneNo,$role,$otherInfo,$creator);
 

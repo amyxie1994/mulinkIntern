@@ -32,6 +32,41 @@
 	<script>
  load_data();
 </script>
+<style>
+
+/* The Modal (background) */
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    padding-top: 100px;
+    padding-left: 300px; /* Location of the box */
+    left: 0;
+    top: 0;
+    width:100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.6); /* Black w/ opacity */
+}
+
+
+/* Modal Content */
+.modal-content {
+	position:relative;
+    background-color: #fefefe;
+    margin: auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 90%;
+    max-width: :1200px;
+}
+
+/* The Close Button */
+
+
+
+</style>
 </head>
 
 <body>
@@ -46,17 +81,17 @@
 				<div class="navbar-btn">
 					<button type="button" class="btn-toggle-fullwidth"><i class="lnr lnr-arrow-left-circle"></i></button>
 				</div>
-				
+			
 				
 				<div id="navbar-menu">
 					<ul class="nav navbar-nav navbar-right">
 
 						<li>
-							<a href="#"><img src="assets/img/user.jpg" class="img-circle" alt="Avatar"> <span>Admin</span></a>
+							<a href="#"><img src="assets/img/user.jpg" class="img-circle" alt="Avatar"> <span><?php session_start(); echo $_SESSION["username"];?></span></a>
 						</li>
 							
 						
-						<li><a href="#"><i class="lnr lnr-exit"></i> <span>Logout</span></a></li>
+						<li><a href="#"><i class="lnr lnr-exit"></i><button onclick= "log_out()">Logout</button></li>
 					</ul>
 				</div>
 			</div>
@@ -67,23 +102,23 @@
 			<div class="sidebar-scroll">
 				<nav>
 					<ul class="nav">
-						<li><a href="index.html" class="active"><i class="lnr lnr-home"></i> <span>Overview</span></a></li>
+						<li><a href="index.php" class=""><i class="lnr lnr-home"></i> <span>Overview</span></a></li>
 						<li>
 							<a href="#subPages1" data-toggle="collapse" class="collapsed"><i class="lnr lnr-dice"></i><span>Supplier Data Mgmt</span> <i class="icon-submenu lnr lnr-chevron-left"></i></a>
 							<div id="subPages1" class="collapse ">
 								<ul class="nav">
-									<li><a href="page-profile.html" class="">Add Supplier</a></li>
-									<li><a href="page-login.html" class="">Supplier List/Searching</a></li>
+									<li><a href="addSupplier.php" class="">Add Supplier</a></li>
+									<li><a href="supplierInfo.php" class="">Supplier List/Searching</a></li>
 									
 								</ul>
 							</div>
 						</li>
 						<li>
-							<a href="#subPages2" data-toggle="collapse" class="collapsed"><i class="lnr lnr-file-empty"></i> <span>Research Data Mgmt</span> <i class="icon-submenu lnr lnr-chevron-left"></i></a>
+							<a href="#subPages2" data-toggle="collapse" class="collapsed active"><i class="lnr lnr-file-empty"></i> <span>Research Data Mgmt</span> <i class="icon-submenu lnr lnr-chevron-left"></i></a>
 							<div id="subPages2" class="collapse ">
 								<ul class="nav">
-									<li><a href="#" class="">Add Research Data</a></li>
-									<li><a href="page-login.html" class="">Data List/Searching</a></li>
+									<li><a href="addResearchData.php" class="">Add Research Data</a></li>
+									<li><a href="#" class="">Data List/Searching</a></li>
 									
 								</ul>
 							</div>
@@ -93,13 +128,13 @@
 							<div id="subPages3" class="collapse ">
 								<ul class="nav">
 									<li><a href="register.php" class="">Register new account</a></li>
-									<li><a href="page-login.html" class="">Edit User Info</a></li>
+									<li><a href="userInfo.php" class="">User List</a></li>
 									
 								</ul>
 							</div>
 						</li>
 						
-						<li><a href="icons.html" class=""><i class="lnr lnr-linearicons"></i> <span>Add Source</span></a></li>
+						<li><a href="addSource.php" class=""><i class="lnr lnr-linearicons"></i> <span>Add Source</span></a></li>
 					</ul>
 				</nav>
 			</div>
@@ -120,12 +155,17 @@
 
                         <div class="panel-body">
   
-                        <div class="input-group">
-						<input type="text" id ="searchData" class="form-control" name = "query" style="width: 300px;" placeholder="Input  keywords">
-						<span style="width: 30px;" class="input-group-btn"><button type="button" class="btn btn-primary" onclick = "quickSearch()">Quick Search</button></span>
+                        
+						<input type="text" style="width:150px;" id ="searchData"  name = "query"  placeholder="Input  keywords"><button type="button"  onclick = "quickSearch()">Quick Search</button> 
+						
+						
+					<br>
+						<br>
+						<button type="button" class="btn btn-primary" onclick = "clickFunction()">More Search Condition</button> 
+						<br>
+						
 
-						</div>
-
+					
 						<br>
                             <div class="table-responsive">
 
@@ -135,14 +175,13 @@
                                             <th>Name</th>
                                             <th>MainKW</th>
                                             <th>OtherKW</th>
-                                            <th>QTY</th>
-                                            <th>sampleCost</th>
-                                            <th>totalCost</th>
-                                            <th>estProfit</th>
-                                            <th>FBA</th>
-                                            <th>MOQ</th>
-                                            <th>Est_profit</th>
+                                            <th>BSR</th>
+                                            <th>Sale Price</th>
+                                            <th>Alibaba Price</th>                     
+                                           <th>FBA</th>
+                                            <th>Estimate profit</th>
                                             <th>life_cycle</th>
+                                            <th>Create_time</th>
                                             <th>Show Products</th>
                                             <th>Edit</th>
                                             <th>Delete</th>
@@ -161,8 +200,72 @@
 					
 				</div>
 			</div>
+
+
+<div id="myModal" class="modal">
+  		<div class="modal-content" width = "100px">
+  			
+      	<div class="modal-header">
+        	<button type="button" onclick = "closeModal()" class="close" data-dismiss="modal">&times;</button>
+        	<h4 class="modal-title"><b>Search Filters</b></h4>
+        	
+      	</div>
+      	<div class="modal-body">
+     <input type="hidden" value = "addCompetitor" id = "type" name ="type">
+<table style="width:100%">
+    <tr>
+        <td>  <b>Name:</b> </td>
+        <td> <input type="text"  id = "name" name ="name"> </td>
+        </tr>
+
+        <tr>
+        <td> <b> Keyword: </b></td>
+        <td> <input type="text"  id = "KW" name ="KW" autocomplete='on'> </td>
+    </tr>
+
+    <tr>
+        <td><b>BSR Range:</b></td>
+        <td> <input type="text"   id = "LBSR" name ="LBSR"> to <input type="text"   id = "HBSR" name ="HBSR"> </td>
+        </tr>
+        <tr>
+        <td> <b>Sales Price Range:</b></td>
+        <td><input type="text"  id = "LSales" name ="LSales"> to <input type="text"  id = "HSales" name ="HSales"></td>
+   	</tr>
+   
+    <tr>
+        <td><b>Ali Price Range:</b></td>
+        <td> <input type="text"   id = "LAPrice" name ="LAPrice"> to <input type="text"   id = "HAPrice" name ="HAPrice"> </td>
+        </tr>
+        <tr>
+        <td> <b>FBA fee Range:</b></td>
+        <td><input type="text"  id = "LFBA" name ="LFBA"> to <input type="text"  id = "HFBA" name ="HFBA"></td>
+   	</tr>
+   <tr>
+        <td> <b>Est profit Range:</b></td>
+        <td><input type="text"  id = "LEST" name ="LEST"> to <input type="text"  id = "HEST" name ="HEST"></td>
+   	</tr>
+   	 <tr>
+        <td> <b>Life cycle Range:</b></td>
+        <td><input type="text"  id = "LLC" name ="LLC"> to <input type="text"  id = "HLC" name ="HLC"></td>
+   	</tr>
+   
+      </table> 
+            
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" onclick = "filter()">Search</button> 
+      </div>
+      
+    </div>
+
+</div>
+		
+
 			<!-- END MAIN CONTENT -->
 		</div>
+			
+
+    
 		<!-- END MAIN -->
 		<div class="clearfix"></div>
 		<footer>
@@ -171,6 +274,7 @@
 			</div>
 		</footer>
 	</div>
+
 	<!-- END WRAPPER -->
 	<!-- Javascript -->
 	<script src="assets/vendor/jquery/jquery.min.js"></script>
@@ -183,7 +287,50 @@
   <script src="//code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <script src="researchDataJS.js"></script>
 <script type="text/javascript">
+
+function log_out()
+{
+	$.ajax({
+		type: "POST",
+        url: "php/userOperations.php",
+        data: {type:"log_out"},
+        dataType: "json",
+        success:function(data){
+        	window.location.href = "login.html";
+        }
+	});
+}
+
 $(function() {
+
+$("#KW").autocomplete({
+  source: function(request, response){ 
+
+  	$.ajax({
+  		type: "POST",
+        url: "php/productOperations.php",
+        dataType: "json",
+  		data:{type:"keywordHint",query:request.term},
+
+  		success: function(data){
+
+  			var row;
+  			var result =[];
+  			for(var i = 0; i < data.length;i++)
+  			{
+  				row = data[i];
+
+  				result[i]= row.Keyword;
+
+  			}
+
+  			response(result);
+  		}
+  	});
+  },
+});
+
+
 $("#searchData").autocomplete({
   source: function(request, response){ 
   	$.ajax({
@@ -208,7 +355,38 @@ $("#searchData").autocomplete({
 });
 });
 
+function filter()
+{
+	var name = document.getElementById("name").value;
+	var keyword = document.getElementById("KW").value; 
+	var LBSR = document.getElementById("LBSR").value; 
+	var HBSR = document.getElementById("HBSR").value; 
+	var LSales = document.getElementById("LSales").value; 
+	var HSales = document.getElementById("HSales").value; 
+	var LAPrice = document.getElementById("LAPrice").value; 
+	var HAPrice = document.getElementById("HAPrice").value;
+	var LFBA = document.getElementById("LFBA").value; 
+	var HFBA = document.getElementById("HFBA").value; 
+	var LEST = document.getElementById("LEST").value; 
+	var HEST = document.getElementById("HEST").value; 
+	var LLC = document.getElementById("LLC").value;
+	var HLC = document.getElementById("HLC").value;  
+	
+	$.ajax({
+  		type: "POST",
+        url: "php/researchDataOperations.php",
+        dataType: "json",
+  		data:{type:"filter",name:name,keyword:keyword,LBSR:LBSR,HBSR:HBSR,LSales:LSales,HSales:HSales,LAPrice:LAPrice,HAPrice:HAPrice,LFBA:LFBA,HFBA:HFBA,LEST:LEST,HEST:HEST,LLC:LLC,HLC:HLC},
+  		success: function(data){
+  			
+  			closeModal();
+  			 update(data);
+  			//location.reload();
+  		}
+  	});
 
+	
+}
 
 
 </script>

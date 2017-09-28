@@ -32,6 +32,11 @@
         data: {type:"list"},
         dataType: "json",
         success:function(data){
+        	if(data=="false")
+        	{
+        		alert("Operation not allow!");
+        	}	
+		else{
         	var username;
         	var password;
         	var create_time;
@@ -67,6 +72,7 @@
         	 table.replaceChild(tbody,old_tbody);
 
         }
+    }
  	});
  }
 
@@ -136,7 +142,7 @@
 
 function edit_user(user_id)
 {
- 	alert(user_id);
+
  	window.location = 'editUser.php?user_id='+user_id ;
  }
 
@@ -226,7 +232,7 @@ function edit_user(user_id)
 							</div>
 						</li>
 						
-						<li><a href="icons.html" class=""><i class="lnr lnr-linearicons"></i> <span>Add Source</span></a></li>
+						<li><a href="addSource.php" class=""><i class="lnr lnr-linearicons"></i> <span>Add Source</span></a></li>
 					</ul>
 				</nav>
 			</div>

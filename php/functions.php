@@ -61,12 +61,16 @@ function updateKw($productId,$mainKw,$otherKw)
 		$tag[0]=$newId;
 	}
 	else
+	{
 		addMainKw($productId,$tag[0]);
+
+	}
+
 
 	for($i=1;$i<count($keyword);$i++)
 	{	
 
-		if($tag[$i]==0)
+		if($tag[$i]==0&&$keyword[$i]!="")
 		{
 			$newId=addKeyword($keyword[$i]);
 			updatePreKw($newId,$tag,$i);

@@ -51,7 +51,7 @@ function addCompetitor()
 	$BrandName = $_POST["BrandName"];
 	$BSR = $_POST["BSR"];
 	$Sales = $_POST["Sales"];
-	$Price = $_POST["Price"];
+	
 	$Size = $_POST["Size"];
 	$LaunchDay = $_POST["LaunchDay"];
 	$Link = $_POST["Link"];
@@ -59,7 +59,7 @@ function addCompetitor()
 	$Pros = $_POST["Strength"];
 	$Cons = $_POST["Weakness"];
 	$ResultId = $_POST["reDataId"];
-	$competitorManager->addCompetitor($BrandName,$BSR,$Sales,$Price,$Size,$LaunchDay,$Link,$Review,$Pros,$Cons,$ResultId);
+	$competitorManager->addCompetitor($BrandName,$BSR,$Sales,$Size,$LaunchDay,$Link,$Review,$Pros,$Cons,$ResultId);
 		
 	header('Location: ../addCompetitorAnalysis.php?id='.$ResultId);
 }

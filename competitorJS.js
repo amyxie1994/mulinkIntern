@@ -39,7 +39,7 @@ function load_Competitor(id)
 
             
             
-            appendProductInfo(tbody,Id,BrandName,BSR,Sales,Price,Size,LaunchDay,Link,Review,Pros,Cons)
+            appendProductInfo(tbody,Id,BrandName,BSR,Sales,Price,Size,LaunchDay,Link,Review,Pros,Cons,row.Create_time)
             }
             table.replaceChild(tbody,old_tbody);
         }
@@ -47,7 +47,7 @@ function load_Competitor(id)
 }
 
 
-function appendProductInfo(tbody,Id,BrandName,BSR,Sales,Price,Size,LaunchDay,Link,Review,Pros,Cons)
+function appendProductInfo(tbody,Id,BrandName,BSR,Sales,Price,Size,LaunchDay,Link,Review,Pros,Cons,Create_time)
 {
   
   var row = tbody.insertRow(0);
@@ -65,26 +65,29 @@ function appendProductInfo(tbody,Id,BrandName,BSR,Sales,Price,Size,LaunchDay,Lin
   cell = row.insertCell(3);
   cell.innerHTML = Sales;
 
-  cell = row.insertCell(4);
-  cell.innerHTML = Price;
+ // cell = row.insertCell(4);
+ // cell.innerHTML = Price;
 
-  cell = row.insertCell(5);
+  cell = row.insertCell(4);
   cell.innerHTML = Size;
 
-  cell = row.insertCell(6);
+  cell = row.insertCell(5);
   cell.innerHTML = LaunchDay;
 
-  cell = row.insertCell(7);
+  cell = row.insertCell(6);
   cell.innerHTML = Link;
 
-  cell = row.insertCell(8);
+  cell = row.insertCell(7);
   cell.innerHTML = Review;
 
-  cell = row.insertCell(9);
+  cell = row.insertCell(8);
   cell.innerHTML = Pros;
 
-  cell = row.insertCell(10);
+  cell = row.insertCell(9);
   cell.innerHTML = Cons;
+
+  cell = row.insertCell(10);
+  cell.innerHTML = Create_time;
 
   cell = row.insertCell(11);
   var btn = document.createElement('button');
@@ -126,62 +129,38 @@ function load_Researchdata(id){
           var row = data[0];
           var element;
           element = document.getElementById('ProName');
-          element.innerHTML="Product Name:"+row.productName;
+          element.innerHTML="<b>Name:</b>"+row.productName;
 
           element = document.getElementById('AliBusinessCard');
-          element.innerHTML="Ali BusinessCard:"+row.AliBusinessCard;
+          element.innerHTML="<b>Ali BusinessCard:</b>"+row.AliBusinessCard;
 
           element = document.getElementById('Seller');
-          element.innerHTML="Seller:"+row.Seller;
+          element.innerHTML="<b>Seller BusinessCard:</b>"+row.Seller;
 
-          element = document.getElementById('ModNum');
-          element.innerHTML="Mod Number:"+row.ModNum;
+ element = document.getElementById('BSR');
+          element.innerHTML="<b>BSR(90 days):</b>"+row.BSR;
 
           element = document.getElementById('sellerPrice');
-          element.innerHTML="Seller Price:"+row.sellerPrice;
+          element.innerHTML="<b>Sale Price:</b>"+row.sellerPrice;
 
           element = document.getElementById('AliPrice');
-          element.innerHTML="Ali Price:"+row.AliPrice;
-
-          element = document.getElementById('MOQ');
-          element.innerHTML="MOQ:"+row.MOQ;
-
-          element = document.getElementById('SearchNo');
-          element.innerHTML="Search Number:"+row.SearchNo;
-
-          element = document.getElementById('RePageNo');
-          element.innerHTML="Review Page Number:"+row.RePageNo;
-
-          element = document.getElementById('AvePage');
-          element.innerHTML="Average Page:"+row.AvePage;
+          element.innerHTML="<b>Alibaba Price:</b>"+row.AliPrice;
 
           element = document.getElementById('OtherInfo');
-          element.innerHTML="Other Information:"+row.OtherInfo;
+          element.innerHTML="<b>Comments:</b>"+row.OtherInfo;
 
           element = document.getElementById('FBA_fees');
-          element.innerHTML="FBA fees:"+row.FBA_fees;
+          element.innerHTML="<b>FBA fees:</b>"+row.FBA_fees;
 
           element = document.getElementById('Est_profit');
-          element.innerHTML="Estimate profit:"+row.Est_profit;
+          element.innerHTML="<b>Estimate profit:</b>"+row.estProfit;
 
           element = document.getElementById('life_cycle');
-          element.innerHTML="life cycle:"+row.life_cycle;
+          element.innerHTML="<b>life cycle:</b>"+row.life_cycle;
 
-          element = document.getElementById('indcost');
-          element.innerHTML="Individual cost:"+row.indcost;
-
-          element = document.getElementById('QTY');
-          element.innerHTML="QTY:"+row.QTY;
-
-          element = document.getElementById('sampleCost');
-          element.innerHTML="sampleCost:"+row.sampleCost;
-
-          element = document.getElementById('addUnitPrice');
-          element.innerHTML="Extra add unit cost:"+row.addUnitPrice;
-
-          element = document.getElementById('totalCost');
-          element.innerHTML="Total cost:"+row.totalCost;
-
+           element = document.getElementById('Create_time');
+          element.innerHTML="<b>Create time:</b>"+row.Create_time;
+       
           element = document.getElementById('reDataId');
           element.value = id;
         }
