@@ -282,37 +282,37 @@ function load_info(supplierId)
            element = document.getElementById('supplierId');
           element.value = row.SupplierId;
            element = document.getElementById('ComName');
-          element.innerHTML = "Name: "+row.ComName;
+          element.innerHTML = "<b>Name:</b> "+row.ComName;
 
           element = document.getElementById('Address');
-          element.innerHTML = "Address: "+row.Address;
+          element.innerHTML = "<b>Address:</b> "+row.Address;
 
           element = document.getElementById('Email');
-          element.innerHTML = "Email: "+row.ComName;
+          element.innerHTML = "<b>Email:</b> "+row.ComName;
 
           element = document.getElementById('ConPerson');
-          element.innerHTML = "Contact Person: "+row.ContactPerson;
+          element.innerHTML = "<b>Contact Person: </b>"+row.ContactPerson;
 
           element = document.getElementById('AliSite');
-          element.innerHTML = "Source(Alibaba) Site: "+row.AlibabaSite;
+          element.innerHTML = "<b>Source(Alibaba) Site:</b> "+row.AlibabaSite;
 
           element = document.getElementById('Ebsite');
-          element.innerHTML = "Ebsite: "+row.Ebsite;
+          element.innerHTML = "<b>Ebsite: </b>"+row.Ebsite;
 
           element = document.getElementById('Fax');
-          element.innerHTML = "Fax: "+row.Fax;
+          element.innerHTML = "<b>Fax:</b> "+row.Fax;
 
           element = document.getElementById('Skype');
-          element.innerHTML = "Skype: "+row.Skype;
+          element.innerHTML = "<b>Skype:</b> "+row.Skype;
 
           element = document.getElementById('Phone');
-          element.innerHTML = "Phone: "+row.Phone;
+          element.innerHTML = "<b>Phone:</b> "+row.Phone;
 
           element = document.getElementById('Role');
-          element.innerHTML = "Role: "+row.Role;
+          element.innerHTML = "<b>Role:</b> "+row.Role;
 
           element = document.getElementById('OtherInfo');
-          element.innerHTML = "OtherInfo: "+row.OtherInfo;
+          element.innerHTML = "<b>OtherInfo:</b> "+row.OtherInfo;
         }
      });
  }

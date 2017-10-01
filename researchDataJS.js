@@ -50,11 +50,12 @@ function update(data)
         FBA = row.FBA_fees;
         life_cycle = row.life_cycle;
         
-        append_table(tbody,id,mainkw,otherkw,name,BSR,sellerPrice,AliPrice,estProfit,FBA,life_cycle,row.Create_time);
+        
+        append_table(tbody,id,mainkw,otherkw,name,BSR,sellerPrice,AliPrice,estProfit,FBA,life_cycle,row.Create_time,row.Creator);
     }
     table.replaceChild(tbody,old_tbody);
 }
- function append_table(tbody,id,mainkw,otherkw,name,BSR,sellerPrice,AliPrice,estProfit,FBA,life_cycle,Create_time)
+ function append_table(tbody,id,mainkw,otherkw,name,BSR,sellerPrice,AliPrice,estProfit,FBA,life_cycle,Create_time,Creator)
  {
 
  	var row = tbody.insertRow(0);
@@ -98,9 +99,11 @@ function update(data)
     var cell10 = row.insertCell(10);
     cell10.innerHTML =Create_time;
  
+    var cell11 = row.insertCell(11);
+    cell11.innerHTML =Creator;
 
 
- 	var cell12 = row.insertCell(11);
+ 	var cell12 = row.insertCell(12);
  	var btn1 = document.createElement('button');
  	btn1.className = "btn btn-info btn-xs";
  	btn1.onclick = function(){	
@@ -113,7 +116,7 @@ function update(data)
     btn1.appendChild(temp1);
     cell12.appendChild(btn1);
 
-    cell12 = row.insertCell(12);
+    cell12 = row.insertCell(13);
     btn1 = document.createElement('button');
     btn1.className = "btn btn-info btn-xs";
     btn1.onclick = function(){
@@ -127,7 +130,7 @@ function update(data)
     cell12.appendChild(btn1);
  	
 
- 	var cell13 = row.insertCell(13);
+ 	var cell13 = row.insertCell(14);
  	var btn2 = document.createElement('button');
  	btn2.className = "btn btn-danger btn-xs";
  	btn2.onclick = function(){

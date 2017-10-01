@@ -48,7 +48,7 @@ function getProductList(supplierId)
         		mainkw = getMainKW(productId);
         		otherkw = getOtherKW(productId);
         		
-        		appendProductInfo(tbody,productId,name,mainkw,otherkw,price,proSize,QTY,packing,model,imgNum,row.Create_time)
+        		appendProductInfo(tbody,productId,name,mainkw,otherkw,price,proSize,QTY,packing,model,imgNum,row.Create_time,row.Creator)
         	}
 
         	table.replaceChild(tbody,old_tbody);
@@ -56,7 +56,7 @@ function getProductList(supplierId)
     });
 }
 
-function appendProductInfo(tbody,productId,name,mainkw,otherkw,price,proSize,QTY,packing,model,imgNum,Create_time)
+function appendProductInfo(tbody,productId,name,mainkw,otherkw,price,proSize,QTY,packing,model,imgNum,Create_time,Creator)
 {
 	
 	var row = tbody.insertRow(0);
@@ -102,7 +102,10 @@ function appendProductInfo(tbody,productId,name,mainkw,otherkw,price,proSize,QTY
   cell = row.insertCell(9);
   cell.innerHTML = Create_time;
 
- 	cell = row.insertCell(10);
+  cell = row.insertCell(10);
+  cell.innerHTML = Creator;
+
+ 	cell = row.insertCell(11);
  	var pic = document.createElement("IMG");
  	var path;
  	if(imgNum==0){
@@ -124,7 +127,7 @@ function appendProductInfo(tbody,productId,name,mainkw,otherkw,price,proSize,QTY
  	cell.appendChild(pic);
 
 
- 	cell = row.insertCell(11);
+ 	cell = row.insertCell(12);
  	var btn = document.createElement('button');
  	btn.className = "btn btn-danger btn-xs";
  	btn.onclick = function(){

@@ -39,7 +39,7 @@ function load_Competitor(id)
 
             
             
-            appendProductInfo(tbody,Id,BrandName,BSR,Sales,Price,Size,LaunchDay,Link,Review,Pros,Cons,row.Create_time)
+            appendProductInfo(tbody,Id,BrandName,BSR,Sales,Price,Size,LaunchDay,Link,Review,Pros,Cons,row.Create_time,row.Creator)
             }
             table.replaceChild(tbody,old_tbody);
         }
@@ -47,7 +47,7 @@ function load_Competitor(id)
 }
 
 
-function appendProductInfo(tbody,Id,BrandName,BSR,Sales,Price,Size,LaunchDay,Link,Review,Pros,Cons,Create_time)
+function appendProductInfo(tbody,Id,BrandName,BSR,Sales,Price,Size,LaunchDay,Link,Review,Pros,Cons,Create_time,Creator)
 {
   
   var row = tbody.insertRow(0);
@@ -90,6 +90,9 @@ function appendProductInfo(tbody,Id,BrandName,BSR,Sales,Price,Size,LaunchDay,Lin
   cell.innerHTML = Create_time;
 
   cell = row.insertCell(11);
+  cell.innerHTML = Creator;
+
+  cell = row.insertCell(12);
   var btn = document.createElement('button');
   btn.className = "btn btn-danger btn-xs";
   btn.onclick = function(){

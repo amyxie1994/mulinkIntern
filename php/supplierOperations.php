@@ -3,6 +3,7 @@
 include "supplierManagement.php";
 
 
+
 $type=$_POST['type'];
 
 	
@@ -16,6 +17,7 @@ switch ($type) {
 		listSupplier();
 		break;
 	case "supplierHint":
+
 		supplierHint();
 		break;
 
@@ -111,6 +113,9 @@ function deleteSupplier()
 
 function supplierHint()
 {	
+	
+
+
 	$term = $_POST["query"];
 	$supManager = new supplierManager();
 	$result = $supManager->hintSupplier($term);

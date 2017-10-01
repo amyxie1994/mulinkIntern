@@ -20,7 +20,20 @@ class supplierManager{
 	public function hintSupplier($term)
 	{	
 		$variable="%".$term."%";
-		$sql = "SELECT ComName FROM supplier WHERE ComName LIKE '$variable';";
+
+		session_start();
+		$name = $_SESSION["username"];
+		$userManager = new userManager();
+		$userinfo = $userManager->get_info_basedOnName($name);
+		$permission = $userinfo[0]["vOrS_a_sudata"];
+
+		
+
+		if($permission)
+			$sql = "SELECT ComName FROM supplier WHERE ComName LIKE '$variable';";
+		else
+			$sql = "SELECT ComName FROM supplier WHERE Creator like '$name' AND ComName LIKE '$variable';";
+
 		$result = $this->execute($sql);
 		return $this->get_data($result);
 	}

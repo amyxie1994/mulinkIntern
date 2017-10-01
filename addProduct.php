@@ -468,6 +468,7 @@ img.hover-shadow {
                                             <th>QTY</th>
                                             <th>PCs/CTN</th> 
                                              <th>Create time</th> 
+                                             <th>Creator</th>
                                             <th>Image</th>                                      
                                             <th>Delete</th>
                                         </tr>

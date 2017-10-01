@@ -48,7 +48,7 @@ function updateKw($productId,$mainKw,$otherKw)
 	//print_r($keyword);
 
 
-	for($i=0;$i<count($keyword);$i++)
+	for($i=0;$i<=count($keyword);$i++)
 	{
 		$tag[$i]=getKwId($keyword[$i]);
 	}
@@ -67,7 +67,7 @@ function updateKw($productId,$mainKw,$otherKw)
 	}
 
 
-	for($i=1;$i<count($keyword);$i++)
+	for($i=1;$i<=count($keyword);$i++)
 	{	
 
 		if($tag[$i]==0&&$keyword[$i]!="")

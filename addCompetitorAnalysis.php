@@ -281,7 +281,8 @@
                                             <th>Link</th>
                                             <th>Number of Review</th>
                                             
-                                            <th>Pros</th>                      <th>Cons</th>     <th>Create time</th>          
+                                            <th>Pros</th>                      <th>Cons</th>     <th>Create time</th>  
+                                             <th>Creator</th>        
                                             <th>Delete</th>
                                         </tr>
                                     </thead>

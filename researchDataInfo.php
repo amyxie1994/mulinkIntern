@@ -182,6 +182,7 @@
                                             <th>Estimate profit</th>
                                             <th>life_cycle</th>
                                             <th>Create_time</th>
+                                            <th>Creator</th>
                                             <th>Show Products</th>
                                             <th>Edit</th>
                                             <th>Delete</th>
@@ -220,7 +221,7 @@
 
         <tr>
         <td> <b> Keyword: </b></td>
-        <td> <input type="text"  id = "KW" name ="KW" autocomplete='on'> </td>
+        <td> <input type="text"  id = "KW" name ="KW"> </td>
     </tr>
 
     <tr>
@@ -283,10 +284,14 @@
 	<script src="assets/vendor/jquery.easy-pie-chart/jquery.easypiechart.min.js"></script>
 	<script src="assets/vendor/chartist/js/chartist.min.js"></script>
 	<script src="assets/scripts/klorofil-common.js"></script>
-	<script src="//code.jquery.com/jquery-1.12.4.js"></script>
+	<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/smoothness/jquery-ui.css">
+  <script src="//code.jquery.com/jquery-1.12.4.js"></script>
   <script src="//code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-<script src="researchDataJS.js"></script>
+
 <script type="text/javascript">
+
+ 
+	
 
 function log_out()
 {
@@ -306,29 +311,25 @@ $(function() {
 $("#KW").autocomplete({
   source: function(request, response){ 
 
-  	$.ajax({
-  		type: "POST",
+    $.ajax({
+      type: "POST",
         url: "php/productOperations.php",
         dataType: "json",
-  		data:{type:"keywordHint",query:request.term},
+      data:{type:"keywordHint",query:request.term},
+      success: function(data){
+        
+        var result=[];
+        for(var i =0;i<data.length;i++)
+          result[i]=data[i].Keyword;
+        response(result);
 
-  		success: function(data){
+      }
+    });
 
-  			var row;
-  			var result =[];
-  			for(var i = 0; i < data.length;i++)
-  			{
-  				row = data[i];
+  } 
 
-  				result[i]= row.Keyword;
-
-  			}
-
-  			response(result);
-  		}
-  	});
-  },
 });
+
 
 
 $("#searchData").autocomplete({
@@ -351,8 +352,53 @@ $("#searchData").autocomplete({
   			response(result);
   		}
   	});
-  },
+  }
 });
+
+
+$("#name").autocomplete({
+
+  source: function(request, response){ 
+
+  	$.ajax({
+  		type: "POST",
+        url: "php/productOperations.php",
+        dataType: "json",
+  		data:{type:"productNameHint",query:request.term},
+  		success: function(data){
+
+  			var row;
+  			var result =[];
+  			var ProductName;
+  			var MainKW;
+  			var OtherKW;
+  			for(var i = 0; i < data.length;i++)
+  			{
+  				row = data[i];
+  				ProductName = row.ProductName;  	
+
+  				MainKW = getMainKW(row.id);
+
+  				OtherKW = getOtherKW(row.id);
+  				result.push({label: row.ProductName,
+  							//data:[row.mainKeyword,row.OtherKeyword] });
+  							data:[MainKW] });
+
+  			}
+
+  			response(result);
+
+  		}
+  	});
+
+  },
+  select: function( event, ui ) {
+	$('#KW').val(ui.item.data[0]);
+ 
+  },
+
+});
+
 });
 
 function filter()

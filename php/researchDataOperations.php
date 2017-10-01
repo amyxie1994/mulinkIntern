@@ -122,6 +122,7 @@ function quickSearchData()
 
 function deleteData()
 {
+	
 	$id = $_POST["query"];
 	$reDataManager = new researchDataManager();
 

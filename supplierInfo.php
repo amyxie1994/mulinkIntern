@@ -23,7 +23,7 @@
 
 	<link rel="stylesheet" type="text/css" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery-ui.css" />
 
-
+</head>
 
 	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
 
@@ -34,7 +34,7 @@
  load_data();
 
 </script>
-</head>
+
 
 <body>
 <div id="wrapper">
@@ -146,7 +146,7 @@
                                             <th>OtherInfo</th>
                                             <th>Creator</th>
                                             <th>Create time</th>
-                                            <th>Operations</th>
+                                            <th>Edit</th>
                                             <th>Delete</th>
                                         </tr>
                                     </thead>
@@ -181,14 +181,17 @@
 	<script src="assets/vendor/jquery.easy-pie-chart/jquery.easypiechart.min.js"></script>
 	<script src="assets/vendor/chartist/js/chartist.min.js"></script>
 	<script src="assets/scripts/klorofil-common.js"></script>
-	<script src="//code.jquery.com/jquery-1.12.4.js"></script>
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+  <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/smoothness/jquery-ui.css">
+  <script src="//code.jquery.com/jquery-1.12.4.js"></script>
   <script src="//code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
 
 <script type="text/javascript">
 
 
 function log_out()
-{
+{ 
 	$.ajax({
 		type: "POST",
         url: "php/userOperations.php",
@@ -201,14 +204,18 @@ function log_out()
 }
 
 $(function() {
+
 $("#searchSupplier").autocomplete({
+
   source: function(request, response){ 
+
   	$.ajax({
   		type: "POST",
         url: "php/supplierOperations.php",
         dataType: "json",
   		data:{type:"supplierHint",query:request.term},
   		success: function(data){
+  		
   			var row;
   			var result =[];
   			for(var i = 0; i < data.length;i++)

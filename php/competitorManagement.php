@@ -6,8 +6,10 @@ class competitorManager
 	
 	public function addCompetitor($BrandName,$BSR,$Sales,$Size,$LaunchDay,$Link,$Review,$Pros,$Cons,$ResultId)
 	{
+		session_start();
+		$user = $_SESSION["username"];
 		$Create_time=date("y:m:d:h:m:sa");
-		$sql = "INSERT INTO competitor_analysis(BrandName,BSR,Sales,Size,LaunchDay,Link,Review,Pros,Cons,ResultId,Create_time) VALUES('$BrandName','$BSR','$Sales','$Size','$LaunchDay','$Link','$Review','$Pros','$Cons','$ResultId','$Create_time');";
+		$sql = "INSERT INTO competitor_analysis(BrandName,BSR,Sales,Size,LaunchDay,Link,Review,Pros,Cons,ResultId,Create_time,Creator) VALUES('$BrandName','$BSR','$Sales','$Size','$LaunchDay','$Link','$Review','$Pros','$Cons','$ResultId','$Create_time','$user');";
 
 	 
 		return $this->execute($sql);
