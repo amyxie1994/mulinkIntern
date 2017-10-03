@@ -166,7 +166,7 @@ function update_user($user_id)
 {
 	$username = $_POST['username'];
 	$password = $_POST['password'];
-	$add_supOrPro = set_checkbox_value('add_supOrPro');
+	$add_supOrPro = set_checkbox_value('add_supplier');
 	$add_ReData = set_checkbox_value('add_ReData');
 	$vOrS_o_redata = set_checkbox_value('vOrS_o_redata');
 	$vOrS_a_redata = set_checkbox_value('vOrS_a_redata');

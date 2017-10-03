@@ -41,7 +41,7 @@
 		<!-- NAVBAR -->
 		<nav class="navbar navbar-default navbar-fixed-top">
 			<div class="brand">
-				<a href="index.html"><img src="assets/img/logo.png" class="img-responsive logo"></a>
+				<a href="index.php"><img src="assets/img/logo.png" class="img-responsive logo"></a>
 			</div>
 			<div class="container-fluid">
 				<div class="navbar-btn">
@@ -134,16 +134,16 @@
                                     <thead>
                                         <tr>
                                             <th>Name</th>
-                                            <th>Address</th>
+                                            
                                             <th>Contact Person</th>
                                             <th>Email </th>
                                             <th>Alibaba Site</th>
-                                            <th>Ebsite</th>
-                                            <th>Skype</th>
+                                            <th>Company Website</th>
+                                            
                                             <th>Fax</th>
                                             <th>Phone</th>
                                             <th>Role</th>
-                                            <th>OtherInfo</th>
+                                           
                                             <th>Creator</th>
                                             <th>Create time</th>
                                             <th>Edit</th>

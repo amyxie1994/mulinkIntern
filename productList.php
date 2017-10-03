@@ -87,6 +87,7 @@
   position: relative;
   background-color: #fefefe;
   margin: auto;
+  border: 1px solid #888;
   padding: 0;
   width: 40%;
   height: 40%;
@@ -106,7 +107,7 @@
 
 /* The Close Button */
 .close {
-    color: #aaaaaa;
+    color: #ff0000;
     float: right;
     font-size: 50px;
     font-weight: bold;
@@ -137,6 +138,22 @@
   padding: 16px;
   margin-top: -50px;
   color: #ff0000;
+  font-weight: bold;
+  font-size: 20px;
+  transition: 0.6s ease;
+  border-radius: 0 3px 3px 0;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.imgclosestyle {
+  cursor: pointer;
+  position: absolute;
+  top: 100%;
+  width: auto;
+  padding: 16px;
+  margin-top: -50px;
+  color: #aaaaaa;
   font-weight: bold;
   font-size: 20px;
   transition: 0.6s ease;
@@ -314,10 +331,13 @@ img.hover-shadow {
 </div>
 <!-- /**********************************************************************/ -->
 <div id="imgModal" class="imgmodal">
- <span class="close cursor"  style="color:#ff0000" onclick="closeImgModal()">&times;</span>
- <div class="imgmodal-content" id="modalReplace">
 
- 
+ <span class="close cursor"  style="color: #ff0000" onclick="closeImgModal()">&times;</span>
+ <div class="imgmodal-content" id="modalReplace">
+ <div class="modal-header">
+          <button type="button" onclick = "closeProModal()" class="close" data-dismiss="modal">&times;</button>
+          </div>
+
  </div>
 </div>
 <!-- /*****************************************************************************/ -->

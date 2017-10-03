@@ -88,48 +88,48 @@ function update(data)
     cell1.appendChild(link);
  	//cell1.innerHTML = name;
 
- 	var cell2 = row.insertCell(2);
- 	cell2.innerHTML = address;
+ 	//var cell2 = row.insertCell(2);
+ 	//cell2.innerHTML = address;
 
- 	var cell3 = row.insertCell(3);
+ 	var cell3 = row.insertCell(2);
  	cell3.innerHTML = conPerson;
 
- 	var cell4 = row.insertCell(4);
+ 	var cell4 = row.insertCell(3);
  	cell4.innerHTML = email;
 
- 	var cell5 = row.insertCell(5);
+ 	var cell5 = row.insertCell(4);
  	cell5.innerHTML = aliSite;
 
- 	var cell6 = row.insertCell(6);
+ 	var cell6 = row.insertCell(5);
  	cell6.innerHTML =ebsite;
 
- 	var cell7 = row.insertCell(7);
- 	cell7.innerHTML =skype;
+ 	//var cell7 = row.insertCell(7);
+ 	//cell7.innerHTML =skype;
 
- 	var cell8 = row.insertCell(8);
+ 	var cell8 = row.insertCell(6);
  	cell8.innerHTML =fax;
 
- 	var cell9 = row.insertCell(9);
+ 	var cell9 = row.insertCell(7);
  	cell9.innerHTML =phone;
 
 
- 	var cell10 = row.insertCell(10);
+ 	var cell10 = row.insertCell(8);
  	cell10.innerHTML =role;
 
- 	var cell11 = row.insertCell(11);
- 	cell11.innerHTML =otherInfo;
+ 	//var cell11 = row.insertCell(11);
+ 	//cell11.innerHTML =otherInfo;
 
 
 
- 	cell8 = row.insertCell(12);
+ 	cell8 = row.insertCell(9);
  	cell8.innerHTML = creator;
 
 
-	cell8 = row.insertCell(13);
+	cell8 = row.insertCell(10);
  	cell8.innerHTML = create_time;
 
 
- 	var cell12 = row.insertCell(14);
+ 	var cell12 = row.insertCell(11);
  	var btn1 = document.createElement('button');
  	btn1.className = "btn btn-info btn-xs";
  	btn1.onclick = function(){
@@ -140,7 +140,7 @@ function update(data)
     temp1.className = "fa fa-pencil-square-o";
     temp1.setAttribute("aria-hidden", "true");
 
- 	var cell13 = row.insertCell(15);
+ 	var cell13 = row.insertCell(12);
  	var btn2 = document.createElement('button');
  	btn2.className = "btn btn-danger btn-xs";
  	btn2.onclick = function(){
@@ -297,7 +297,7 @@ function load_info(supplierId)
           element.innerHTML = "<b>Source(Alibaba) Site:</b> "+row.AlibabaSite;
 
           element = document.getElementById('Ebsite');
-          element.innerHTML = "<b>Ebsite: </b>"+row.Ebsite;
+          element.innerHTML = "<b>Company Website: </b>"+row.Ebsite;
 
           element = document.getElementById('Fax');
           element.innerHTML = "<b>Fax:</b> "+row.Fax;

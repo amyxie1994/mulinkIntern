@@ -125,7 +125,7 @@ function addProduct()
 		
 		$imgNum = getUploadFile($productId);
 		updateImgNum($productId,$imgNum);
-
+//
 		echo "<script>
 		window.location =\"../addProduct.php?supplier_id=".$SupplierId."\";
 		alert('Add Successfully!');

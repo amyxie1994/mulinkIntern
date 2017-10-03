@@ -68,9 +68,16 @@ function filterSearch()
 	$LLC = $_POST["LLC"];
 	$HLC = $_POST["HLC"];
 
-	$reDataManager = new researchDataManager();
 
-	return $reDataManager->filterSearch($name,$kw ,$LBSR ,$HBSR ,$LSales ,$HSales ,$LAPrice ,$HAPrice ,$LFBA ,$HFBA ,$LEST ,$HEST ,$LLC ,$HLC);
+	session_start();
+	$user = $_SESSION["username"];
+
+	$userManager = new userManager();
+	$userInfo = $userManager->get_info_basedOnName($user);
+	$permission = $userInfo[0]["vOrS_a_redata"];
+
+	$reDataManager = new researchDataManager();
+	return $reDataManager->filterSearch($name,$kw ,$LBSR ,$HBSR ,$LSales ,$HSales ,$LAPrice ,$HAPrice ,$LFBA ,$HFBA ,$LEST ,$HEST ,$LLC ,$HLC,$user,$permission);
 
 }
 
@@ -117,7 +124,15 @@ function quickSearchData()
 	$query = $_POST["query"];
 	$reDataManager = new researchDataManager();
 
-	return $reDataManager->quickSearch(getKwId($query));
+	session_start();
+	$user = $_SESSION["username"];
+
+	$userManager = new userManager();
+	$userInfo = $userManager->get_info_basedOnName($user);
+	$permission = $userInfo[0]["vOrS_a_redata"];
+
+
+	return $reDataManager->quickSearch(getKwId($query),$permission,$user);
 }
 
 function deleteData()

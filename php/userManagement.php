@@ -86,7 +86,7 @@ class userManager
 
 	public function update_user($user_id,$username,$password,$add_supOrPro,$add_ReData,$vOrS_a_sudata,$vOrS_o_sudata,$vOrS_a_redata,$vOrS_o_redata)
 	{
-		$sql = "UPDATE user SET Username ='$username',Password ='$password',add_Supplier = '$add_Supplier',add_ReData = '$add_ReData',vOrS_a_sudata = '$vOrS_a_sudata',vOrS_o_sudata = '$vOrS_o_sudata',vOrS_a_redata= '$vOrS_a_redata',vOrS_o_redata= '$vOrS_o_redata' WHERE UserID = '$user_id';";
+		$sql = "UPDATE user SET Username ='$username',Password ='$password',add_Supplier = '$add_supOrPro',add_ReData = '$add_ReData',vOrS_a_sudata = '$vOrS_a_sudata',vOrS_o_sudata = '$vOrS_o_sudata',vOrS_a_redata= '$vOrS_a_redata',vOrS_o_redata= '$vOrS_o_redata' WHERE UserID = '$user_id';";
 		
 
 		$result = $this->execute($sql);

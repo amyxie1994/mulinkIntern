@@ -13,7 +13,7 @@ class researchDataManager
 
 
 
-	public function filterSearch($name,$kw ,$LBSR ,$HBSR ,$LSales ,$HSales ,$LAPrice ,$HAPrice ,$LFBA ,$HFBA ,$LEST ,$HEST ,$LLC ,$HLC)
+	public function filterSearch($name,$kw ,$LBSR ,$HBSR ,$LSales ,$HSales ,$LAPrice ,$HAPrice ,$LFBA ,$HFBA ,$LEST ,$HEST ,$LLC ,$HLC,$user,$permission)
 	{
 		
 		$maxBSR = $this->getMax("BSR");
@@ -66,8 +66,10 @@ class researchDataManager
 			$maxLC =(int)$HLC;
 
 		//return $minSales;
-
-		$sql = "SELECT * FROM research_result WHERE productName like '$searchName' AND BSR BETWEEN '$minBSR' AND '$maxBSR' AND sellerPrice BETWEEN '$minSales' AND '$maxSales' AND AliPrice BETWEEN '$minAprice' AND '$maxAprice' AND FBA_fees BETWEEN '$minFBA' AND '$maxFBA' AND estProfit BETWEEN '$minEProfit' AND '$maxEProfit' AND Life_cycle BETWEEN '$minLC' AND '$maxLC' ;";
+		if($permission)
+			$sql = "SELECT * FROM research_result WHERE productName like '$searchName' AND BSR BETWEEN '$minBSR' AND '$maxBSR' AND sellerPrice BETWEEN '$minSales' AND '$maxSales' AND AliPrice BETWEEN '$minAprice' AND '$maxAprice' AND FBA_fees BETWEEN '$minFBA' AND '$maxFBA' AND estProfit BETWEEN '$minEProfit' AND '$maxEProfit' AND Life_cycle BETWEEN '$minLC' AND '$maxLC' ;";
+		else
+			$sql = "SELECT * FROM research_result WHERE Creator = '$user' AND productName like '$searchName' AND BSR BETWEEN '$minBSR' AND '$maxBSR' AND sellerPrice BETWEEN '$minSales' AND '$maxSales' AND AliPrice BETWEEN '$minAprice' AND '$maxAprice' AND FBA_fees BETWEEN '$minFBA' AND '$maxFBA' AND estProfit BETWEEN '$minEProfit' AND '$maxEProfit' AND Life_cycle BETWEEN '$minLC' AND '$maxLC' ;";
 		
 		//return $sql;
 		$result = $this->execute($sql);
@@ -164,12 +166,15 @@ class researchDataManager
 		return $this->get_data($result);
 	}
 
-	public function quickSearch($id)
+	public function quickSearch($id,$permission,$user)
 	{	
 
 	/*	$sql = "SELECT *
 FROM research_result INNER JOIN main_kw ON research_result.ResultId = main_kw.Product_id INNER JOIN other_kw ON research_result.ResultId = main_kw.Product_id WHERE main_kw.Kw_id = '$id' OR other_kw.Kw_id = '$id';";
 return $sql;*/
+		//session_start();
+		//$user = $_SESSION["username"];
+
 		$keywordList = $this->searchKWList($id);
 
 		$final = [];
@@ -177,7 +182,10 @@ return $sql;*/
 		for($i = 0;$i < count($keywordList);$i++)
 		{
 			$kw = $keywordList[$i];
-			$sql = "SELECT * FROM research_result WHERE ResultId = '$kw'; ";
+			if($permission)
+				$sql = "SELECT * FROM research_result WHERE ResultId = '$kw'; ";
+			else
+				$sql = "SELECT * FROM research_result WHERE ResultId = '$kw' AND Creator = '$user'; ";
 			$result = $this->execute($sql);
 			$temp = $this->get_data($result);
 
